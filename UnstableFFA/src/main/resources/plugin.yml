@@ -1,0 +1,982 @@
+name: UnstableFFA
+version: 1.3
+main: org.zenithEssentials
+api-version: '1.21'
+softdepend: [voicechat, PlaceholderAPI]
+
+# =====================================================================================
+#  COMMANDS
+#  Grouped by who uses them. The "permission:" on each command is what LuckPerms checks.
+# =====================================================================================
+commands:
+
+  # ---------------------------------------------------------------- everyone
+  tpa:
+    permission: "unstableffa.tpa"
+    description: "Request to teleport to a player."
+    usage: /tpa <player>
+  tpahere:
+    permission: "unstableffa.tpa"
+    description: "Request a player to teleport to you."
+    usage: /tpahere <player>
+  tpaccept:
+    permission: "unstableffa.tpa"
+    description: "Accept a teleport request."
+  tpdeny:
+    permission: "unstableffa.tpa"
+    description: "Deny a teleport request."
+  tpacancel:
+    permission: "unstableffa.tpa"
+    description: "Cancel your sent teleport request."
+  tpauto:
+    permission: "unstableffa.tpauto"
+    description: "Toggle automatic TPA acceptance."
+  tpatoggle:
+    permission: "unstableffa.tpauto"
+    description: "Toggle whether you can receive TPA requests."
+  sethome:
+    permission: "unstableffa.sethome"
+    description: "Set a home location."
+  home:
+    permission: "unstableffa.home"
+    description: "Teleport to a home."
+  delhome:
+    permission: "unstableffa.delhome"
+    description: "Delete a home."
+  listhomes:
+    permission: "unstableffa.listhomes"
+    description: "List your homes."
+  spawn:
+    permission: "unstableffa.spawn"
+    description: "Teleport to the server spawn."
+  warp:
+    description: "Teleport to a warp."
+    usage: /warp <name>
+  ping:
+    description: "Check your connection latency."
+  msg:
+    description: "Send a private message."
+    usage: /msg <player> <message>
+  trash:
+    description: "Open the disposal menu."
+  report:
+    permission: "unstableffa.report"
+    description: "Report a player (opens a menu)."
+    usage: /report [player] [reason]
+  staff:
+    description: "See which staff members are online."
+    aliases: [stafflist, onlinestaff]
+  kit:
+    permission: "unstableffa.kit"
+    description: "Open the kit menu or claim a kit."
+    aliases: [kits]
+    usage: /kit [kit|preview|create|edit|delete|give|reset|list]
+  block:
+    permission: "unstableffa.block"
+    description: "Block a player: no chat, messages, teleport requests or join/leave messages between you."
+    usage: /block <player|list>
+  unblock:
+    permission: "unstableffa.block"
+    description: "Unblock a player."
+    usage: /unblock <player>
+  ignore:
+    permission: "unstableffa.ignore"
+    description: "Ignore (or stop ignoring) a player's chat and private messages."
+    usage: /ignore <player|list>
+  unignore:
+    permission: "unstableffa.ignore"
+    description: "Stop ignoring a player."
+    usage: /unignore <player>
+  playtime:
+    description: "Show a player's playtime."
+    usage: /playtime [player]
+  seen:
+    permission: "unstableffa.seen"
+    description: "Player info: browse all players with search, filters, sorting and profile cards."
+    aliases: [info]
+    usage: /seen [player]
+  zenithsettings:
+    description: "Your personal settings (messages, teleports, sounds, staff alerts)."
+    usage: /zenithsettings [messages|tpa|tpauto|sounds|alerts|vanish|socialspy]
+  leaderboard:
+    permission: "unstableffa.leaderboard"
+    description: "See the top players: playtime, kills, deaths and more."
+    aliases: [top, lb, leaderboards]
+    usage: /leaderboard [playtime|kills|mobs|deaths|distance|fishing]
+  rules:
+    permission: "unstableffa.rules"
+    description: "Read the server rules and accept them."
+    aliases: [rule]
+  combat:
+    permission: "unstableffa.combat"
+    description: "See if you are in combat. Admins: tag, untag, list, clear."
+    aliases: [ct, combattag]
+    usage: /combat [tag|untag|list|newbie|debug] [player]
+  staffguide:
+    permission: "unstableffa.staffguide"
+    description: "Staff guide: every staff command, grouped by topic."
+    aliases: [sguide, staffhelp]
+  guide:
+    permission: "unstableffa.guide"
+    description: "A guide with the commands you need to get started."
+    aliases: [tutorial, newplayer]
+  warps:
+    permission: "unstableffa.warps"
+    description: "Menu with every warp you can use."
+    usage: /warps [list|go <name>]
+  stats:
+    permission: "unstableffa.stats"
+    description: "Your stats or another player's in chat: kills, deaths, K/D, killstreaks, accuracy and more."
+    aliases: [statistics, mystats]
+    usage: /stats [player] [chat|gui]
+  kickall:
+    permission: "unstableffa.kickall"
+    description: "Kick everyone; they must accept the rules and guide again when they join."
+    usage: /kickall confirm [reason]
+  discord:
+    permission: "unstableffa.discord"
+    description: "Show the Discord link."
+    usage: /discord
+  zenithmenu:
+    permission: "unstableffa.menu"
+    description: "Open the Unstable menu."
+    usage: /zenithmenu
+  welcome:
+    permission: "unstableffa.welcome"
+    description: "Preview the first-join welcome message."
+    usage: /welcome [player]
+  quests:
+    description: "Your daily, weekly and monthly quests."
+    aliases: [quest, dailies]
+  rewards:
+    description: "Claim rewards for your playtime."
+    aliases: [playtimerewards, ptrewards]
+  livelink:
+    permission: "unstableffa.livelink"
+    description: "Tell the server you're live with a clickable link."
+    aliases: [live-link, golive]
+    usage: /livelink <link>
+  nick:
+    permission: "unstableffa.nick"
+    description: "Change your nickname."
+    usage: /nick <nickname|off>
+
+  # ---------------------------------------------------------------- moderators
+  punish:
+    permission: "unstableffa.punish"
+    description: "Smart punishment based on config reasons."
+    usage: /punish <player> <category>
+  ban:
+    permission: "unstableffa.ban"
+    description: "Ban a player."
+    usage: /ban <player> <duration|perm> <reason>
+  tempban:
+    permission: "unstableffa.tempban"
+    description: "Temporarily ban a player."
+    usage: /tempban <player> <duration> <reason>
+  unban:
+    permission: "unstableffa.unban"
+    description: "Pardon a banned player."
+    usage: /unban <player> [reason]
+  mute:
+    permission: "unstableffa.mute"
+    description: "Mute a player in chat (and voice chat)."
+    usage: /mute <player> <duration|perm> <reason>
+  unmute:
+    permission: "unstableffa.unmute"
+    description: "Unmute a player."
+    usage: /unmute <player> [reason]
+  kick:
+    permission: "unstableffa.kick"
+    description: "Kick a player from the server."
+    usage: /kick <player> [reason]
+  warn:
+    permission: "unstableffa.warn"
+    description: "Issue a warning to a player."
+    usage: /warn <player> [reason]
+  unwarn:
+    permission: "unstableffa.unwarn"
+    description: "Remove a warning from a player."
+    usage: /unwarn <player> [warn number]
+  history:
+    permission: "unstableffa.history"
+    description: "View a player's punishment history (or the latest punishments server-wide)."
+    usage: /history [player|#banid]
+  note:
+    permission: "unstableffa.note"
+    description: "Add a private staff note to a player's history."
+    usage: /note <player> <text>
+  mutelist:
+    permission: "unstableffa.mutelist"
+    description: "List everyone who is currently muted."
+  reports:
+    permission: "unstableffa.reports"
+    description: "Open the reports menu (claim, teleport, resolve). /reports clear [all]"
+    usage: /reports [clear [all]]
+  chatlog:
+    permission: "unstableffa.chatlogs"
+    description: "See a player's recent chat messages and commands."
+    aliases: [chatlogs, cl]
+    usage: /chatlog <player> [page]
+  ss:
+    permission: "unstableffa.ss"
+    description: "Screenshare a player."
+    aliases: [screenshare]
+    usage: /ss <player> | next | back | repeat | end <player> <clean|ban|admit> | setlocation | list
+  near:
+    permission: "unstableffa.near"
+    description: "List players near you."
+    usage: /near [radius]
+  announce:
+    permission: "unstableffa.announce"
+    description: "Send an announcement (title + sound + chat) to everyone, staff or one player."
+    aliases: [broadcast, bc]
+    usage: /announce <all|staff|player> [name] <message>
+  announcerestart:
+    permission: "unstableffa.announcerestart"
+    description: "Count down to a server restart with warnings, or cancel it."
+    aliases: [restartannounce, rs]
+    usage: /announcerestart <time|cancel> [reason]
+  lagfinder:
+    permission: "unstableffa.lagfinder"
+    description: "Find what is lagging the server (TPS, laggiest chunks, entities)."
+    aliases: [lag, lagcheck]
+    usage: /lagfinder [chunks|entities|world]
+  banlog:
+    permission: "unstableffa.banlog"
+    description: "Ban embeds in Discord: /banlog sync posts all current bans, /banlog <id> looks one up."
+    usage: /banlog <sync|banid>
+  modmode:
+    permission: "unstableffa.modmode"
+    description: "Staff mode: vanish, fly and tools to check players. Your items are saved."
+    aliases: [mm, staffmode]
+  commandspy:
+    permission: "unstableffa.commandspy"
+    description: "See the commands other players use."
+    aliases: [cmdspy, cspy]
+  mutechat:
+    permission: "unstableffa.mutechat"
+    description: "Mute or unmute public chat for everyone except staff."
+    aliases: [lockchat, chatlock]
+    usage: /mutechat [reason]
+  clearlag:
+    permission: "unstableffa.clearlag"
+    description: "Remove ground items, xp orbs, arrows and (optionally) hostile mobs."
+    aliases: [lagg]
+    usage: /clearlag [items|mobs|all|status]
+  whois:
+    permission: "unstableffa.whois"
+    description: "Show UUID, old names and playtime of a player (IPs/alts need extra permissions)."
+    usage: /whois <player|uuid>
+  live:
+    permission: "unstableffa.live"
+    description: "See what a player is doing right now (gamemode, coords, dimension, ...)."
+    aliases: [where, watch, playerinfo]
+    usage: /live <player>
+  invsee:
+    permission: "unstableffa.invsee"
+    description: "Look at a player's inventory."
+    aliases: [inventorysee, invs]
+    usage: /invsee <player>
+  enderchest:
+    permission: "unstableffa.invsee"
+    description: "Look at a player's ender chest."
+    aliases: [ecsee, enderchestsee, ecs]
+    usage: /enderchest <player>
+  freeze:
+    permission: "unstableffa.freeze"
+    description: "Freeze a player in place."
+    usage: /freeze <player>
+  forcetp:
+    permission: "unstableffa.forcetp"
+    description: "Instantly teleport to a player (or move a player to another)."
+    aliases: [ftp]
+    usage: /forcetp <player> [target]  or  /forcetp [player] <x> <y> <z>
+  # Its own command (not an alias) so it always replaces the vanilla /tp,
+  # and tab-complete only ever suggests player names.
+  tp:
+    permission: "unstableffa.forcetp"
+    description: "Instantly teleport to a player (or move a player to another)."
+    aliases: [teleport]
+    usage: /tp <player> [target]  or  /tp [player] <x> <y> <z>
+  forcetphere:
+    permission: "unstableffa.forcetphere"
+    description: "Instantly teleport a player to you."
+    aliases: [ftphere, tphere]
+    usage: /forcetphere <player>
+  vanish:
+    permission: "unstableffa.vanish"
+    description: "Hide yourself from other players."
+  staffchat:
+    permission: "unstableffa.staffchat"
+    description: "Talk privately with other staff members."
+  sc:
+    permission: "unstableffa.staffchat"
+    description: "Shortcut for staffchat."
+  socialspy:
+    permission: "unstableffa.socialspy"
+    description: "See private messages between players."
+  clearchat:
+    permission: "unstableffa.clearchat"
+    description: "Clear the global chat."
+
+  # ---------------------------------------------------------------- senior staff / admins
+  alts:
+    permission: "unstableffa.alts"
+    description: "Show accounts that share an IP with a player (names only)."
+    usage: /alts <player>
+  ipban:
+    permission: "unstableffa.ipban"
+    description: "Ban a player's IP address."
+    usage: /ipban <player|ip> [reason]
+  unipban:
+    permission: "unstableffa.ipban"
+    description: "Remove an IP ban."
+    usage: /unipban <player|ip>
+  banevasion:
+    permission: "unstableffa.banevasion"
+    description: "Allow a player who shares an IP with a banned account."
+    usage: /banevasion <allow|unallow|list> [player]
+  punishlimits:
+    description: "Daily ban/mute/kick/warn limits for staff (menu)."
+    aliases: [plimits, daylimits]
+    usage: /punishlimits [me|player <name>|addgroup <name>|delgroup <name>|reset <name>]
+  staffactivity:
+    permission: "unstableffa.staffactivity"
+    description: "See what each staff member has been doing."
+    aliases: [sa]
+    usage: /staffactivity [player] [days]
+  pardonoffense:
+    permission: "unstableffa.pardonoffense"
+    description: "Lower a player's /punish offense counter by one."
+    usage: /pardonoffense <player> <category>
+  clearhistory:
+    permission: "unstableffa.clearhistory"
+    description: "Wipe a player's punishment history."
+    usage: /clearhistory <player> confirm
+  staffstats:
+    permission: "unstableffa.staffstats"
+    description: "See how many punishments each staff member has issued."
+    usage: /staffstats [days]
+  tpall:
+    permission: "unstableffa.tpall"
+    description: "Teleport everyone to your location."
+  setspawn:
+    permission: "unstableffa.setspawn"
+    description: "Set the server spawn location."
+  setwarp:
+    permission: "unstableffa.setwarp"
+    description: "Create a new warp."
+    usage: /setwarp <name>
+  delwarp:
+    permission: "unstableffa.delwarp"
+    description: "Delete an existing warp."
+    usage: /delwarp <name>
+  adminlist:
+    permission: "unstableffa.admin"
+    description: "List all warps for administrators."
+  fly:
+    permission: "unstableffa.fly"
+    description: "Toggle flight mode."
+  flyspeed:
+    permission: "unstableffa.fly"
+    description: "Set your flight speed."
+  walkspeed:
+    permission: "unstableffa.fly"
+    description: "Set your walking speed."
+  god:
+    permission: "unstableffa.god"
+    description: "Toggle invincibility."
+  sudo:
+    permission: "unstableffa.sudo"
+    description: "Force another player to run a command."
+    usage: /sudo <player> <command>
+  lockdown:
+    permission: "unstableffa.lockdown"
+    description: "Toggle server lockdown and trigger maintenance plugin."
+  serverstatus:
+    permission: "unstableffa.serverstatus"
+    description: "Force-refresh the Discord status embed."
+  unstableffa:
+    description: "Help (all commands you can use), reload, backups and in-game config."
+    aliases: [ze]
+    usage: /ze <help|reload|backup|config>
+  openwarpgui:
+    description: "Console-only command to open the Warp GUI via NPC."
+
+# =====================================================================================
+#  PERMISSIONS
+#  Easiest setup in LuckPerms:
+#    /lp group default    permission set unstableffa.player true
+#    /lp group moderator  permission set unstableffa.moderator true
+#    /lp group admin      permission set unstableffa.admin true
+#  Moderators can NOT see IP addresses or alts. Give unstableffa.alts / .ip.view /
+#  .ipban to senior staff only (unstableffa.admin includes them).
+# =====================================================================================
+permissions:
+
+  # ---------------------------------------------------------------- groups
+  unstableffa.player:
+    description: Everything a normal player needs.
+    default: true
+    children:
+      unstableffa.tpa: true
+      unstableffa.sethome: true
+      unstableffa.home: true
+      unstableffa.delhome: true
+      unstableffa.listhomes: true
+      unstableffa.spawn: true
+      unstableffa.seen: true
+      unstableffa.report: true
+      unstableffa.kit: true
+      unstableffa.block: true
+      unstableffa.ignore: true
+      unstableffa.leaderboard: true
+      unstableffa.rules: true
+      unstableffa.guide: true
+      unstableffa.warps: true
+      unstableffa.stats: true
+      unstableffa.stats.others: true
+
+  unstableffa.moderator:
+    description: Moderator kit. Punish, history, notes, live view, inventories, force tp. No IPs or alts.
+    default: false
+    children:
+      unstableffa.player: true
+      unstableffa.punish: true
+      unstableffa.staffguide: true
+      unstableffa.combat: true
+      unstableffa.unwarn: true
+      unstableffa.history: true
+      unstableffa.note: true
+      unstableffa.mutelist: true
+      unstableffa.reports: true
+      unstableffa.whois: true
+      unstableffa.alerts: true
+      unstableffa.live: true
+      unstableffa.invsee: true
+      unstableffa.freeze: true
+      unstableffa.forcetp: true
+      unstableffa.forcetphere: true
+      unstableffa.vanish: true
+      unstableffa.staffchat: true
+      unstableffa.socialspy: true
+      unstableffa.commandspy: true
+      unstableffa.modmode: true
+      unstableffa.rules.bypass: true
+      unstableffa.firstjoin.bypass: true
+      unstableffa.clearchat: true
+      unstableffa.staffcount: true
+      unstableffa.filter.bypass: true
+      unstableffa.lockdown.bypass: true
+      unstableffa.msg.bypass: true
+      unstableffa.near: true
+      unstableffa.mutechat: true
+      unstableffa.mutechat.bypass: true
+      unstableffa.ignore.exempt: true
+      unstableffa.report.bypasscooldown: true
+      unstableffa.cooldown.bypass: true
+      unstableffa.chatlogs: true
+      unstableffa.ss: true
+
+  unstableffa.admin:
+    description: Everything, including IPs, alts, IP bans and server management.
+    default: op
+    children:
+      unstableffa.moderator: true
+      unstableffa.welcome: true
+      unstableffa.combat.admin: true
+      unstableffa.alts: true
+      unstableffa.ip.view: true
+      unstableffa.ipban: true
+      unstableffa.pardonoffense: true
+      unstableffa.clearhistory: true
+      unstableffa.staffstats: true
+      unstableffa.reports.clear: true
+      unstableffa.invsee.edit: true
+      unstableffa.live.teleport: true
+      unstableffa.forcetp.others: true
+      unstableffa.forcetp.exempt: true
+      unstableffa.tpall: true
+      unstableffa.tpauto: true
+      unstableffa.setspawn: true
+      unstableffa.setwarp: true
+      unstableffa.delwarp: true
+      unstableffa.fly: true
+      unstableffa.god: true
+      unstableffa.sudo: true
+      unstableffa.lockdown: true
+      unstableffa.serverstatus: true
+      unstableffa.nick: true
+      unstableffa.nick.color: true
+      unstableffa.nick.others: true
+      unstableffa.nick.bypass: true
+      unstableffa.fasttravel.instant: true
+      unstableffa.homes.unlimited: true
+      unstableffa.clearlag: true
+      unstableffa.announce: true
+      unstableffa.announcerestart: true
+      unstableffa.banlog: true
+      unstableffa.lagfinder: true
+      unstableffa.lagfinder.alerts: true
+      unstableffa.commandspy.exempt: true
+      unstableffa.kit.admin: true
+      unstableffa.kit.bypasscooldown: true
+      unstableffa.anticuss.bypass: true
+      unstableffa.flood.bypass: true
+      unstableffa.mention.bypass: true
+      unstableffa.menu.bypass: true
+      unstableffa.banevasion: true
+      unstableffa.banevasion.exempt: true
+      unstableffa.staffactivity: true
+      unstableffa.punishlimits.admin: true
+      unstableffa.limit.bypass: true
+      unstableffa.ss.setlocation: true
+      unstableffa.ss.exempt: true
+      unstableffa.livelink: true
+      unstableffa.livelink.bypass: true
+      unstableffa.quests.admin: true
+      unstableffa.rewards.admin: true
+
+  # ---------------------------------------------------------------- player
+  unstableffa.tpa:
+    description: Use /tpa, /tpahere, /tpaccept, /tpdeny, /tpacancel
+    default: true
+  unstableffa.tpauto:
+    description: Use /tpauto and /tpatoggle (auto-accept teleports)
+    default: op
+  unstableffa.sethome:
+    description: Use /sethome
+    default: true
+  unstableffa.home:
+    description: Use /home
+    default: true
+  unstableffa.delhome:
+    description: Use /delhome
+    default: true
+  unstableffa.listhomes:
+    description: Use /listhomes
+    default: true
+  unstableffa.homes.unlimited:
+    description: No home limit (otherwise unstableffa.homes.<number>, or default-home-limit in config.yml)
+    default: op
+  unstableffa.spawn:
+    description: Use /spawn
+    default: true
+  unstableffa.seen:
+    description: Use /seen
+    default: true
+  unstableffa.nick:
+    description: Change your own nickname
+    default: op
+  unstableffa.nick.color:
+    description: Use color codes in nicknames
+    default: op
+  unstableffa.nick.others:
+    description: Change other players' nicknames
+    default: op
+  unstableffa.nick.bypass:
+    description: Use nicknames that are already taken or match real names
+    default: op
+  unstableffa.fasttravel.instant:
+    description: Teleports (home, warp, spawn, tpa) have no countdown
+    default: op
+
+  # ---------------------------------------------------------------- moderation
+  unstableffa.punish:
+    description: Every punishment command (/punish, /ban, /tempban, /unban, /mute, /unmute, /kick, /warn), no time limit
+    default: op
+    children:
+      unstableffa.ban: true
+      unstableffa.tempban: true
+      unstableffa.unban: true
+      unstableffa.mute: true
+      unstableffa.unmute: true
+      unstableffa.kick: true
+      unstableffa.warn: true
+  unstableffa.ban:
+    description: Use /ban only. Add unstableffa.ban.<time> (for example ban.7days) to limit how long they may ban for
+    default: false
+  unstableffa.tempban:
+    description: Use /tempban only. Add unstableffa.tempban.<time> (or unstableffa.ban.<time>) to limit how long
+    default: false
+  unstableffa.unban:
+    description: Use /unban only
+    default: false
+  unstableffa.mute:
+    description: Use /mute only. Add unstableffa.mute.<time> (for example mute.3hours) to limit how long they may mute for
+    default: false
+  unstableffa.unmute:
+    description: Use /unmute only
+    default: false
+  unstableffa.kick:
+    description: Use /kick only
+    default: false
+  unstableffa.warn:
+    description: Use /warn only
+    default: false
+  unstableffa.unwarn:
+    description: Remove warnings with /unwarn
+    default: op
+  unstableffa.history:
+    description: Open /history
+    default: op
+  unstableffa.note:
+    description: Add staff notes with /note
+    default: op
+  unstableffa.mutelist:
+    description: Use /mutelist
+    default: op
+  unstableffa.reports:
+    description: Read /reports and get report alerts
+    default: op
+  unstableffa.reports.clear:
+    description: Use /reports clear
+    default: op
+  unstableffa.whois:
+    description: Use /whois (shows IPs/alts only with the permissions below)
+    default: op
+  unstableffa.alerts:
+    description: Receive staff alerts (suspicious joins, reports, chat filter, notes)
+    default: op
+  unstableffa.live:
+    description: Use /live
+    default: op
+  unstableffa.live.teleport:
+    description: Teleport to a player from the /live menu
+    default: op
+  unstableffa.invsee:
+    description: Look at inventories and ender chests
+    default: op
+  unstableffa.invsee.edit:
+    description: Change items in /invsee and /enderchest
+    default: op
+  unstableffa.freeze:
+    description: Use /freeze
+    default: op
+  unstableffa.forcetp:
+    description: Use /forcetp <player>
+    default: op
+  unstableffa.forcetp.others:
+    description: Use /forcetp <player> <target> to move someone else
+    default: op
+  unstableffa.forcetphere:
+    description: Use /forcetphere (/tphere)
+    default: op
+  unstableffa.forcetp.exempt:
+    description: Can't be moved by /forcetphere, /forcetp <a> <b> or /tpall (except by admins)
+    default: op
+  unstableffa.vanish:
+    description: Use /vanish and see vanished players
+    default: op
+  unstableffa.staffchat:
+    description: Use /staffchat and /sc
+    default: op
+  unstableffa.socialspy:
+    description: Use /socialspy
+    default: op
+  unstableffa.clearchat:
+    description: Use /clearchat
+    default: op
+  unstableffa.staffcount:
+    description: Shown as staff on the Discord status embed
+    default: false
+  unstableffa.filter.bypass:
+    description: Not checked by the chat filter
+    default: op
+  unstableffa.msg.bypass:
+    description: Can /msg players who turned private messages off
+    default: op
+  unstableffa.lockdown.bypass:
+    description: Can join during /lockdown
+    default: op
+
+  # ---------------------------------------------------------------- sensitive (senior staff only)
+  unstableffa.alts:
+    description: See possible alt accounts (names only) in /alts, /whois, /history, profiles and join alerts
+    default: op
+  unstableffa.ip.view:
+    description: See real IP addresses in /whois, /live, profiles and /unipban suggestions
+    default: op
+  unstableffa.ipban:
+    description: Use /ipban and /unipban
+    default: op
+  unstableffa.pardonoffense:
+    description: Use /pardonoffense
+    default: op
+  unstableffa.clearhistory:
+    description: Use /clearhistory
+    default: op
+  unstableffa.staffstats:
+    description: Use /staffstats
+    default: op
+
+  # ---------------------------------------------------------------- reports, chat, block/ignore
+  unstableffa.report:
+    description: Use /report
+    default: true
+  unstableffa.report.bypasscooldown:
+    description: No waiting time between reports
+    default: op
+  unstableffa.block:
+    description: Use /block and /unblock
+    default: true
+  unstableffa.ignore:
+    description: Use /ignore and /unignore
+    default: true
+  unstableffa.leaderboard:
+    description: Use /leaderboard (/top)
+    default: true
+  unstableffa.rules:
+    description: Use /rules
+    default: true
+  unstableffa.rules.bypass:
+    description: Never blocked when rules.require-accept is on (staff)
+    default: op
+  unstableffa.guide:
+    description: Use /guide
+    default: true
+  unstableffa.staffguide:
+    description: Use /staffguide
+    default: op
+  unstableffa.combat:
+    description: Use /combat to see your combat status
+    default: true
+  unstableffa.combat.admin:
+    description: /combat tag, untag, list and clear
+    default: op
+  unstableffa.combat.bypass:
+    description: Never put in combat (not even ops have this unless you give it)
+    default: false
+  unstableffa.combat.commands.bypass:
+    description: Can use every command while in combat
+    default: false
+  unstableffa.warps:
+    description: Use /warps
+    default: true
+  unstableffa.stats:
+    description: Use /stats
+    default: true
+  unstableffa.stats.others:
+    description: Look at other players' stats
+    default: true
+  unstableffa.welcome:
+    description: Preview the welcome message with /welcome
+    default: op
+  unstableffa.kickall:
+    description: Use /kickall (kicks everyone and resets the first-join steps)
+    default: op
+  unstableffa.discord:
+    description: Use /discord
+    default: true
+  unstableffa.windchargetech:
+    description: Use windcharge tech (right-click a wind charge while falling and looking down)
+    default: true
+  unstableffa.menu:
+    description: Use /zenithmenu
+    default: true
+  unstableffa.firstjoin.bypass:
+    description: Skip the first-join steps (rules and guide). Staff and ops
+    default: op
+  unstableffa.chat.bypass:
+    description: Skip the caps and link limits in chat.yml -> chat-extras
+    default: op
+  unstableffa.ignore.exempt:
+    description: Can't be blocked or ignored (staff)
+    default: op
+  unstableffa.near:
+    description: Use /near (staff only)
+    default: op
+  unstableffa.mutechat:
+    description: Use /mutechat
+    default: op
+  unstableffa.mutechat.bypass:
+    description: Can still talk while chat is muted
+    default: op
+  unstableffa.cooldown.bypass:
+    description: No chat cooldown, no repeat-message block and no command cooldowns
+    default: op
+  unstableffa.anticuss.bypass:
+    description: Swear filter doesn't censor this player
+    default: op
+  unstableffa.menu.bypass:
+    description: No click cooldown on /zenithmenu buttons
+    default: op
+  unstableffa.mention.bypass:
+    description: No cooldown on @mentions
+    default: op
+  unstableffa.flood.bypass:
+    description: Flood filter (repeated letters/words, symbol spam, long messages) ignores this player
+    default: op
+
+  # ---------------------------------------------------------------- kits
+  #  Kits with "Permission required" ON need unstableffa.kit.<kitname>
+  #  e.g. /lp group vip permission set unstableffa.kit.vip true
+  unstableffa.kit:
+    description: Use /kit (open the menu, claim kits you have access to)
+    default: true
+  unstableffa.kit.admin:
+    description: Create, edit, delete, give and reset kits (and claim every kit)
+    default: op
+  unstableffa.kit.bypasscooldown:
+    description: Ignore kit cooldowns and one-time limits
+    default: op
+
+  # ---------------------------------------------------------------- systems
+  unstableffa.livelink:
+    description: Use /livelink (give this to your content creators)
+    default: op
+  unstableffa.livelink.bypass:
+    description: No /livelink cooldown
+    default: op
+  unstableffa.quests.admin:
+    description: /quests reset <player>
+    default: op
+  unstableffa.rewards.admin:
+    description: /rewards reset <player>
+    default: op
+  unstableffa.chatlogs:
+    description: Use /chatlog
+    default: op
+  unstableffa.ss:
+    description: Use /ss to screenshare players
+    default: op
+  unstableffa.ss.setlocation:
+    description: Set the screenshare room
+    default: op
+  unstableffa.ss.exempt:
+    description: Can't be screenshared
+    default: op
+  unstableffa.banevasion:
+    description: Use /banevasion (allow players who share an IP with a banned account)
+    default: op
+  unstableffa.banevasion.exempt:
+    description: Never checked for ban evasion
+    default: op
+  unstableffa.staffactivity:
+    description: Use /staffactivity
+    default: op
+  unstableffa.punishlimits.admin:
+    description: Open the daily punishment limits menu and change limits
+    default: op
+  unstableffa.limit.bypass:
+    description: Never limited by the daily punishment limits
+    default: op
+
+  # ---------------------------------------------------------------- owner only
+  unstableffa.config:
+    description: Use /unstableffa config to view and change config.yml in-game (NOT in the admin group on purpose)
+    default: op
+
+  # ---------------------------------------------------------------- server management
+  unstableffa.clearlag:
+    description: Use /clearlag
+    default: op
+  unstableffa.announce:
+    description: Use /announce
+    default: op
+  unstableffa.announcerestart:
+    description: Use /announcerestart (plan or cancel a server restart)
+    default: op
+  unstableffa.modmode:
+    description: Use /modmode (staff mode with tools; your items are saved and given back)
+    default: op
+  unstableffa.commandspy:
+    description: Use /commandspy (see the commands players use)
+    default: op
+  unstableffa.banlog:
+    description: Use /banlog (sync bans to Discord, look up a ban ID)
+    default: op
+  unstableffa.lagfinder:
+    description: Use /lagfinder
+    default: op
+  unstableffa.lagfinder.alerts:
+    description: Get an alert in chat when the TPS stays low
+    default: op
+  unstableffa.commandspy.exempt:
+    description: Your commands never show up in /commandspy
+    default: op
+  unstableffa.tpall:
+    description: Use /tpall
+    default: op
+  unstableffa.setspawn:
+    description: Use /setspawn
+    default: op
+  unstableffa.setwarp:
+    description: Use /setwarp
+    default: op
+  unstableffa.delwarp:
+    description: Use /delwarp
+    default: op
+  unstableffa.fly:
+    description: Use /fly, /flyspeed, /walkspeed
+    default: op
+  unstableffa.god:
+    description: Use /god
+    default: op
+  unstableffa.sudo:
+    description: Use /sudo
+    default: op
+  unstableffa.sudo.exempt:
+    description: Can't be sudoed (except by ops)
+    default: op
+  unstableffa.lockdown:
+    description: Use /lockdown
+    default: op
+  unstableffa.serverstatus:
+    description: Use /serverstatus
+    default: op
+  unstableffa.mute.30minutes:
+    description: Longest /mute this person may give is 30minutes
+    default: false
+  unstableffa.mute.1hour:
+    description: Longest /mute this person may give is 1hour
+    default: false
+  unstableffa.mute.3hours:
+    description: Longest /mute this person may give is 3hours
+    default: false
+  unstableffa.mute.12hours:
+    description: Longest /mute this person may give is 12hours
+    default: false
+  unstableffa.mute.1day:
+    description: Longest /mute this person may give is 1day
+    default: false
+  unstableffa.mute.3days:
+    description: Longest /mute this person may give is 3days
+    default: false
+  unstableffa.mute.7days:
+    description: Longest /mute this person may give is 7days
+    default: false
+  unstableffa.mute.30days:
+    description: Longest /mute this person may give is 30days
+    default: false
+  unstableffa.ban.1day:
+    description: Longest /ban and /tempban this person may give is 1day
+    default: false
+  unstableffa.ban.3days:
+    description: Longest /ban and /tempban this person may give is 3days
+    default: false
+  unstableffa.ban.7days:
+    description: Longest /ban and /tempban this person may give is 7days
+    default: false
+  unstableffa.ban.14days:
+    description: Longest /ban and /tempban this person may give is 14days
+    default: false
+  unstableffa.ban.30days:
+    description: Longest /ban and /tempban this person may give is 30days
+    default: false
+  unstableffa.tempban.1day:
+    description: Longest /tempban this person may give is 1day
+    default: false
+  unstableffa.tempban.3days:
+    description: Longest /tempban this person may give is 3days
+    default: false
+  unstableffa.tempban.7days:
+    description: Longest /tempban this person may give is 7days
+    default: false
+  unstableffa.tempban.14days:
+    description: Longest /tempban this person may give is 14days
+    default: false
+  unstableffa.tempban.30days:
+    description: Longest /tempban this person may give is 30days
+    default: false

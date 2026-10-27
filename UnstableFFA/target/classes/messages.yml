@@ -1,0 +1,218 @@
+# ==========================================================
+#                 UNSTABLE FFA MESSAGES
+# ==========================================================
+#  Colors:  &#FF9147 &l ...   hex &#FF791F   gradient <gradient:#FF7518:#FFFFFF>Te</gradient><gradient:#FFFFFF:#FF7518>xt</gradient>
+#  \n = new line.  Words in {curly brackets} are filled in by the plugin.
+#  Set a message to "" to turn it off.
+#  The prefix is put in front of every chat message (not in front of menus, titles or broadcasts).
+
+prefix: "<gradient:#FF7518:#FFFFFF>&lUnstab</gradient><gradient:#FFFFFF:#FF7518>&lleFFA</gradient>"
+
+# ----------------------------------------------------------
+# General
+# ----------------------------------------------------------
+player-not-found: "&8» &#D9381E&lError! &7Player '&f{player}&7' not found."
+no-permission: "&8» &#D9381E&lDenied! &7You lack the required permissions."
+no-permission-config: "&8» &#D9381E&lDenied! &7Only owners can change the config."
+error: "&8» &#D9381E&lError! &7{text}"
+success: "&8» &#FF9147&lSuccess! &7{text}"
+info: "&8» &7{text}"
+usage: "<gradient:#FF7518:#FFFFFF>&lUsa</gradient><gradient:#FFFFFF:#FF7518>&lge</gradient> &8» &f{usage}"
+reload-success: "&8» <gradient:#FF7518:#FFFFFF>&lSys</gradient><gradient:#FFFFFF:#FF7518>&ltem</gradient> &8• &fConfiguration files successfully reloaded."
+version: "&8» <gradient:#FF7518:#FFFFFF>&lUnstab</gradient><gradient:#FFFFFF:#FF7518>&lleFFA</gradient> &8• &7Version &f{version}"
+serverstatus-sent: "&8» <gradient:#FF7518:#FFFFFF>&lDisc</gradient><gradient:#FFFFFF:#FF7518>&lord</gradient> &8• &7Status message refreshed."
+
+# ----------------------------------------------------------
+# Teleport requests (/tpa)
+# ----------------------------------------------------------
+tpa-sent: "&8» <gradient:#FF7518:#FFFFFF>&lTele</gradient><gradient:#FFFFFF:#FF7518>&lport</gradient> &8• &7Request sent to &f{player}&7."
+tpahere-sent: "&8» <gradient:#FF7518:#FFFFFF>&lTele</gradient><gradient:#FFFFFF:#FF7518>&lport</gradient> &8• &7Request sent to &f{player}&7."
+tpa-received: "&8» &f&l{player} &7wants to teleport to you."
+tpahere-received: "&8» &f&l{player} &7wants you to teleport to them."
+tpa-button-accept: "&#FF9147&l[✔ ACCEPT]"
+tpa-button-deny: "&#D9381E&l[✖ DENY]"
+tpa-accepted: "&8» &#E05A00&lSuccess! &7Teleport request accepted."
+tpa-accepted-sender: "&8» &#E05A00&lSuccess! &f{player} &7accepted your request."
+tpa-denied: "&8» &#D9381E&lCancelled! &7Teleport request denied."
+tpa-denied-sender: "&8» &#D9381E&lDenied! &f{player} &7denied your teleport request."
+tpa-cancelled: "&8» <gradient:#FF7518:#FFFFFF>&lTele</gradient><gradient:#FFFFFF:#FF7518>&lport</gradient> &8• &7Cancelled &f{count} &7request(s)."
+tpa-expired: "&8» <gradient:#FF7518:#FFFFFF>&lTele</gradient><gradient:#FFFFFF:#FF7518>&lport</gradient> &8• &7Your request to &f{player} &7expired."
+tpa-no-request: "&8» &#D9381E&lError! &7No pending requests found."
+tpa-target-disabled: "&8» &#D9381E&lError! &f{player} &7has teleport requests turned off."
+tpa-blocked: "&8» &#D9381E&lError! &7You can't send teleport requests to that player."
+tpa-auto-accepted: "&8» <gradient:#FF7518:#FFFFFF>&lTele</gradient><gradient:#FFFFFF:#FF7518>&lport</gradient> &8• &f{player} &7accepts requests automatically."
+tpa-toggle-on: "&8» <gradient:#FF7518:#FFFFFF>&lTele</gradient><gradient:#FFFFFF:#FF7518>&lport</gradient> &8• &7Requests: <gradient:#FF7518:#FFFFFF>&lENAB</gradient><gradient:#FFFFFF:#FF7518>&lLED</gradient>"
+tpa-toggle-off: "&8» <gradient:#FF7518:#FFFFFF>&lTele</gradient><gradient:#FFFFFF:#FF7518>&lport</gradient> &8• &7Requests: <gradient:#FF7518:#FFFFFF>&lDISA</gradient><gradient:#FFFFFF:#FF7518>&lBLED</gradient>"
+tpauto-on: "&8» <gradient:#FF7518:#FFFFFF>&lTele</gradient><gradient:#FFFFFF:#FF7518>&lport</gradient> &8• &7Auto-Accept: <gradient:#FF7518:#FFFFFF>&lENAB</gradient><gradient:#FFFFFF:#FF7518>&lLED</gradient>"
+tpauto-off: "&8» <gradient:#FF7518:#FFFFFF>&lTele</gradient><gradient:#FFFFFF:#FF7518>&lport</gradient> &8• &7Auto-Accept: <gradient:#FF7518:#FFFFFF>&lDISA</gradient><gradient:#FFFFFF:#FF7518>&lBLED</gradient>"
+teleport-cancelled: "&8» &#D9381E&lFailed! &7Movement detected. Teleport aborted."
+teleport-safe: "&8» &#FF9147&lArrived! &7Teleportation complete."
+
+# ----------------------------------------------------------
+# Staff teleports (/tp, /tphere, /tpall)
+#   {staff} = who ran the command   {player} = who got moved   {target} = where they went
+# ----------------------------------------------------------
+forcetp-sender: "&8» <gradient:#FF7518:#FFFFFF>&lTele</gradient><gradient:#FFFFFF:#FF7518>&lport</gradient> &8• &7Teleported to &f{target}&7."
+forcetp-target: "&8» <gradient:#FF7518:#FFFFFF>&lTele</gradient><gradient:#FFFFFF:#FF7518>&lport</gradient> &8• &f{staff} &7teleported to you."
+forcetp-coords: "&8» <gradient:#FF7518:#FFFFFF>&lTele</gradient><gradient:#FFFFFF:#FF7518>&lport</gradient> &8• &7Teleported to &f{target}&7."
+forcetp-others-sender: "&8» <gradient:#FF7518:#FFFFFF>&lTele</gradient><gradient:#FFFFFF:#FF7518>&lport</gradient> &8• &7Teleported &f{player} &7to &f{target}&7."
+forcetp-others-player: "&8» <gradient:#FF7518:#FFFFFF>&lTele</gradient><gradient:#FFFFFF:#FF7518>&lport</gradient> &8• &7You were teleported to &f{target} &7by &f{staff}&7."
+forcetphere-sender: "&8» <gradient:#FF7518:#FFFFFF>&lTele</gradient><gradient:#FFFFFF:#FF7518>&lport</gradient> &8• &7Teleported &f{player} &7to you."
+forcetphere-target: "&8» <gradient:#FF7518:#FFFFFF>&lTele</gradient><gradient:#FFFFFF:#FF7518>&lport</gradient> &8• &7You were teleported to &f{staff}&7."
+forcetphere-target-vanished: "&8» <gradient:#FF7518:#FFFFFF>&lTele</gradient><gradient:#FFFFFF:#FF7518>&lport</gradient> &8• &7You were teleported by a staff member."
+tpall-sender: "&8» <gradient:#FF7518:#FFFFFF>&lTele</gradient><gradient:#FFFFFF:#FF7518>&lport</gradient> &8• &7Teleported &f{count} &7player(s) to you."
+tpall-target: "&8» <gradient:#FF7518:#FFFFFF>&lTele</gradient><gradient:#FFFFFF:#FF7518>&lport</gradient> &8• &7Everyone was teleported to &f{staff}&7."
+
+# ----------------------------------------------------------
+# Homes, warps, spawn, back
+# ----------------------------------------------------------
+home-set: "&8» <gradient:#FF7518:#FFFFFF>&lHo</gradient><gradient:#FFFFFF:#FF7518>&lme</gradient> &8• &f{name} &7has been saved."
+home-del: "&8» <gradient:#FF7518:#FFFFFF>&lHo</gradient><gradient:#FFFFFF:#FF7518>&lme</gradient> &8• &#D9381E{name} &7has been deleted."
+home-not-found: "&8» &#D9381E&lError! &7Home '&f{name}&7' not found."
+home-teleport: "&8» &7Teleporting to home: &#E05A00{name}&7..."
+home-limit: "&8» &#D9381E&lLimit! &7You can only have &f{limit} &7home(s). Delete one with &f/delhome&7."
+home-list-header: "&8» <gradient:#FF7518:#FFFFFF>&lHom</gradient><gradient:#FFFFFF:#FF7518>&les</gradient> &8(&f{count}&7/&f{limit}&8) &8• "
+home-list-empty: "&8» <gradient:#FF7518:#FFFFFF>&lHom</gradient><gradient:#FFFFFF:#FF7518>&les</gradient> &8• &7You have no homes yet. Use &f/sethome [name]&7."
+warp-set: "&8» <gradient:#FF7518:#FFFFFF>&lWa</gradient><gradient:#FFFFFF:#FF7518>&lrp</gradient> &8• &f{name} &7has been created."
+warp-del: "&8» <gradient:#FF7518:#FFFFFF>&lWa</gradient><gradient:#FFFFFF:#FF7518>&lrp</gradient> &8• &#D9381E{name} &7has been deleted."
+warp-not-found: "&8» &#D9381E&lError! &7Warp '&f{name}&7' not found."
+warp-teleport: "&8» &7Teleporting to warp: &#E05A00{name}&7..."
+warp-list-header: "&8» <gradient:#FF7518:#FFFFFF>&lWar</gradient><gradient:#FFFFFF:#FF7518>&lps</gradient> &8(&f{count}&8) &8• "
+warp-list-empty: "&8» <gradient:#FF7518:#FFFFFF>&lWar</gradient><gradient:#FFFFFF:#FF7518>&lps</gradient> &8• &7There are no warps you can use."
+warp-list-hint: "&8» &7Click a warp, or open the menu with &f/warp&7."
+warp-icon-tip: "&8» &7Tip: hold an item while using &f/setwarp &7to give the warp an icon in the menu."
+spawn-set: "&8» <gradient:#FF7518:#FFFFFF>&lSpa</gradient><gradient:#FFFFFF:#FF7518>&lwn</gradient> &8• &fLocation updated successfully."
+spawn-teleport: "&8» &7Teleporting to <gradient:#FF7518:#FFFFFF>&lSpa</gradient><gradient:#FFFFFF:#FF7518>&lwn</gradient>&7..."
+spawn-not-set: "&8» &#D9381E&lError! &7The spawn hasn't been set yet."
+back-teleport: "&8» &7Teleporting back to your last location&7..."
+back-none: "&8» &#D9381E&lError! &7There's nowhere to go back to."
+
+# ----------------------------------------------------------
+# Player commands
+# ----------------------------------------------------------
+fly-on: "&8» <gradient:#FF7518:#FFFFFF>&lFli</gradient><gradient:#FFFFFF:#FF7518>&lght</gradient> &8• <gradient:#FF7518:#FFFFFF>&lENAB</gradient><gradient:#FFFFFF:#FF7518>&lLED</gradient>"
+fly-off: "&8» <gradient:#FF7518:#FFFFFF>&lFli</gradient><gradient:#FFFFFF:#FF7518>&lght</gradient> &8• <gradient:#FF7518:#FFFFFF>&lDISA</gradient><gradient:#FFFFFF:#FF7518>&lBLED</gradient>"
+fly-other: "&8» <gradient:#FF7518:#FFFFFF>&lFli</gradient><gradient:#FFFFFF:#FF7518>&lght</gradient> &8• &7Flight for &f{player}&7: {state}"
+god-on: "&8» <gradient:#FF7518:#FFFFFF>&lGodM</gradient><gradient:#FFFFFF:#FF7518>&lode</gradient> &8• <gradient:#FF7518:#FFFFFF>&lENAB</gradient><gradient:#FFFFFF:#FF7518>&lLED</gradient>"
+god-off: "&8» <gradient:#FF7518:#FFFFFF>&lGodM</gradient><gradient:#FFFFFF:#FF7518>&lode</gradient> &8• <gradient:#FF7518:#FFFFFF>&lDISA</gradient><gradient:#FFFFFF:#FF7518>&lBLED</gradient>"
+god-other: "&8» <gradient:#FF7518:#FFFFFF>&lGodM</gradient><gradient:#FFFFFF:#FF7518>&lode</gradient> &8• &7God mode for &f{player}&7: {state}"
+heal-msg: "&8» <gradient:#FF7518:#FFFFFF>&lRest</gradient><gradient:#FFFFFF:#FF7518>&lore</gradient> &8• &fYour health and hunger are now full."
+heal-other: "&8» <gradient:#FF7518:#FFFFFF>&lRest</gradient><gradient:#FFFFFF:#FF7518>&lore</gradient> &8• &7Healed &f{player}&7."
+feed-msg: "&8» <gradient:#FF7518:#FFFFFF>&lRest</gradient><gradient:#FFFFFF:#FF7518>&lore</gradient> &8• &fYour hunger has been satisfied."
+feed-other: "&8» <gradient:#FF7518:#FFFFFF>&lRest</gradient><gradient:#FFFFFF:#FF7518>&lore</gradient> &8• &7Fed &f{player}&7."
+speed-set: "&8» <gradient:#FF7518:#FFFFFF>&lSpe</gradient><gradient:#FFFFFF:#FF7518>&led</gradient> &8• &7Movement set to &#E05A00{speed}&7."
+ping-msg: "&8» <gradient:#FF7518:#FFFFFF>&lLate</gradient><gradient:#FFFFFF:#FF7518>&lncy</gradient> &8• &f{ping}ms"
+ping-other: "&8» <gradient:#FF7518:#FFFFFF>&lLate</gradient><gradient:#FFFFFF:#FF7518>&lncy</gradient> &8• &f{player}&7: &f{ping}ms"
+sudo-done: "&8» <gradient:#FF7518:#FFFFFF>&lSu</gradient><gradient:#FFFFFF:#FF7518>&ldo</gradient> &8• &7Made &f{player} &7run: &f{command}"
+trash-cleared: "&8» &#FF9147&lSuccess! &fYour inventory has been cleared."
+trash-cancelled: "&8» &#D9381E&lAborted! &fInventory clear cancelled."
+
+# Private messages
+msg-sender-format: "&8[&#B15CFFMSG&8] &f{sender} &7» &f{message}"
+msg-target-format: "&8[&#B15CFFMSG&8] &7To &f{target} &7» &f{message}"
+msg-spy-format: "&8[&#B15CFFSpy&8] &7{sender} -> {target}: {message}"
+msg-no-reply: "&8» &#D9381E&lError! &7You have nobody to reply to."
+msg-disabled: "&8» &#D9381E&lError! &f{player} &7has private messages turned off."
+msg-you-blocked: "&8» &#D9381E&lError! &7You blocked &f{player}&7. Use &f/unblock {player} &7first."
+msg-you-ignored: "&8» &#D9381E&lError! &7You're ignoring &f{player}&7. Use &f/ignore {player} &7to stop."
+msg-not-accepting: "&8» &#D9381E&lError! &7That player isn't accepting your messages."
+
+# ----------------------------------------------------------
+# Staff tools
+# ----------------------------------------------------------
+vanish-on: "&8» <gradient:#FF7518:#FFFFFF>&lVan</gradient><gradient:#FFFFFF:#FF7518>&lish</gradient> &8• <gradient:#FF7518:#FFFFFF>&lENAB</gradient><gradient:#FFFFFF:#FF7518>&lLED</gradient> &7(Hidden)"
+vanish-off: "&8» <gradient:#FF7518:#FFFFFF>&lVan</gradient><gradient:#FFFFFF:#FF7518>&lish</gradient> &8• <gradient:#FF7518:#FFFFFF>&lDISA</gradient><gradient:#FFFFFF:#FF7518>&lBLED</gradient> &7(Visible)"
+vanish-other: "&8» <gradient:#FF7518:#FFFFFF>&lVan</gradient><gradient:#FFFFFF:#FF7518>&lish</gradient> &8• &7Vanish for &f{player}&7: {state}"
+vanish-rejoin: "&8» <gradient:#FF7518:#FFFFFF>&lVan</gradient><gradient:#FFFFFF:#FF7518>&lish</gradient> &8• &7You joined while vanished."
+vanish-actionbar: "<gradient:#FF7518:#FFFFFF>&lVANI</gradient><gradient:#FFFFFF:#FF7518>&lSHED</gradient> &8• &7Only staff can see you"
+freeze-on: "&8» <gradient:#FF7518:#FFFFFF>&lFre</gradient><gradient:#FFFFFF:#FF7518>&leze</gradient> &8• &f{player} &7is now frozen."
+freeze-off: "&8» <gradient:#FF7518:#FFFFFF>&lFre</gradient><gradient:#FFFFFF:#FF7518>&leze</gradient> &8• &f{player} &7is no longer frozen."
+freeze-on-target: "&8» &#B15CFF&lFrozen! &7A staff member froze you. &#D9381EDon't log out &7- just wait in chat."
+freeze-off-target: "&8» &#B15CFF&lUnfrozen! &7You can move again."
+freeze-still: "&8» &#B15CFF&lFrozen! &7You are still frozen. Wait for a staff member."
+freeze-no-commands: "&8» &#B15CFF&lFrozen! &7You can't use commands while frozen."
+freeze-title: "<gradient:#FF7518:#FFFFFF>&lFRO</gradient><gradient:#FFFFFF:#FF7518>&lZEN</gradient>"
+freeze-subtitle: "&7Don't log out - staff will talk to you"
+freeze-logout-alert: "&8[<gradient:#FF7518:#FFFFFF>&lFRE</gradient><gradient:#FFFFFF:#FF7518>&lEZE</gradient>&8] &f{player} &#D9381Elogged out while frozen!"
+staffchat-format: "&8[&#B15CFFSTAFF&8] &f{player} &7» &#B15CFF{message}"
+staffchat-on: "&8» <gradient:#FF7518:#FFFFFF>&lStaff</gradient><gradient:#FFFFFF:#FF7518>&l Chat</gradient> &8• &7Everything you type now goes to staff. &8(/sc to stop)"
+staffchat-off: "&8» <gradient:#FF7518:#FFFFFF>&lStaff</gradient><gradient:#FFFFFF:#FF7518>&l Chat</gradient> &8• &7You're back in public chat."
+socialspy-on: "&8» <gradient:#FF7518:#FFFFFF>&lSocia</gradient><gradient:#FFFFFF:#FF7518>&ll Spy</gradient> &8• <gradient:#FF7518:#FFFFFF>&lENAB</gradient><gradient:#FFFFFF:#FF7518>&lLED</gradient>"
+socialspy-off: "&8» <gradient:#FF7518:#FFFFFF>&lSocia</gradient><gradient:#FFFFFF:#FF7518>&ll Spy</gradient> &8• <gradient:#FF7518:#FFFFFF>&lDISA</gradient><gradient:#FFFFFF:#FF7518>&lBLED</gradient>"
+clearchat-staff: "&8» &7Chat was cleared by &f{admin} &8(you keep yours as staff)"
+lockdown-on: "&8» <gradient:#FF7518:#FFFFFF>&lLock</gradient><gradient:#FFFFFF:#FF7518>&ldown</gradient> &8• &7The server is now <gradient:#FF7518:#FFFFFF>&lloc</gradient><gradient:#FFFFFF:#FF7518>&lked</gradient> &7by &f{admin}&7. Only staff can join."
+lockdown-off: "&8» <gradient:#FF7518:#FFFFFF>&lLock</gradient><gradient:#FFFFFF:#FF7518>&ldown</gradient> &8• &7The server is <gradient:#FF7518:#FFFFFF>&lop</gradient><gradient:#FFFFFF:#FF7518>&len</gradient> &7again &8(by {admin})"
+history-empty: "&8» <gradient:#FF7518:#FFFFFF>&lHist</gradient><gradient:#FFFFFF:#FF7518>&lory</gradient> &8• &f{player} &7has a clean record."
+
+# ----------------------------------------------------------
+# Punishments
+# ----------------------------------------------------------
+mute-msg: "&8» &#D9381E&lMuted! &7You are currently muted."
+
+punish-style: |
+  &8&m--------------------------------------------
+  <gradient:#FF7518:#FFFFFF>&lUNST</gradient><gradient:#FFFFFF:#FF7518>&lABLE</gradient> &8» &f&l{target}
+  &7
+  <gradient:#FF7518:#FFFFFF>&lAct</gradient><gradient:#FFFFFF:#FF7518>&lion</gradient> &8• &#D9381E{action}
+  <gradient:#FF7518:#FFFFFF>&lSta</gradient><gradient:#FFFFFF:#FF7518>&lff</gradient>  &8• &f{admin}
+  <gradient:#FF7518:#FFFFFF>&lRea</gradient><gradient:#FFFFFF:#FF7518>&lson</gradient> &8• &7{reason}
+  &8&m--------------------------------------------
+
+# Ban / kick screens   ({reason}, {duration}, {staff}, {player}, {banid})
+# The ban ID and appeal line (config.yml -> appeal-info) are added at the bottom automatically.
+ban-screen-format: "&#D9381E&lYOU ARE BANNED FROM THIS SERVER\n&7Reason: &f{reason}\n&7Duration: &f{duration}\n&7Banned by: &f{staff}\n&7Server IP: &fSERVERIP"
+ban-kick-format: "&#D9381E&lYOU HAVE BEEN BANNED\n&7Reason: &f{reason}\n&7Duration: &f{duration}\n&7Server IP: &fSERVERIP"
+kick-format: "&#D9381E&lYOU HAVE BEEN KICKED\n&7Reason: &f{reason}\n&7By: &f{staff}\n&7Server IP: &fSERVERIP"
+
+# Simple Voice Chat mute   ({time} = how long is left)
+voicechat-muted-notice: "&8» &#D9381E&lMuted! &7You are also muted in voice chat."
+voicechat-muted-actionbar: "<gradient:#FF7518:#FFFFFF>&lYou are</gradient><gradient:#FFFFFF:#FF7518>&l muted</gradient> &8» &7voice chat is disabled &8(&f{time}&8)"
+
+# ----------------------------------------------------------
+# Chat
+# ----------------------------------------------------------
+mutechat-on: "&8» <gradient:#FF7518:#FFFFFF>&lCh</gradient><gradient:#FFFFFF:#FF7518>&lat</gradient> &8• <gradient:#FF7518:#FFFFFF>&lMUT</gradient><gradient:#FFFFFF:#FF7518>&lED</gradient> &7by &f{staff}&7."
+mutechat-off: "&8» <gradient:#FF7518:#FFFFFF>&lCh</gradient><gradient:#FFFFFF:#FF7518>&lat</gradient> &8• <gradient:#FF7518:#FFFFFF>&lUNMU</gradient><gradient:#FFFFFF:#FF7518>&lTED</gradient> &7by &f{staff}&7."
+mutechat-blocked: "&8» &#D9381E&lMuted! &7Chat is muted right now."
+chat-cooldown: "&8» &#D9381E&lSlow down! &7You can chat again in &f{time}&7."
+chat-repeat: "&8» &#D9381E&lSlow down! &7Please don't send the same message twice."
+command-cooldown: "&8» &#D9381E&lCooldown! &7Please wait &f{time} &7before using &f/{command} &7again."
+anticuss-censored: "&8» <gradient:#FF7518:#FFFFFF>&lCh</gradient><gradient:#FFFFFF:#FF7518>&lat</gradient> &8• &7Watch your language - part of your message was censored."
+anticuss-blocked: "&8» &#D9381E&lBlocked! &7Your message wasn't sent - please keep the chat clean."
+
+# ----------------------------------------------------------
+# Reports, kits, clearlag
+# ----------------------------------------------------------
+report-sent: "&8» <gradient:#FF7518:#FFFFFF>&lRep</gradient><gradient:#FFFFFF:#FF7518>&lort</gradient> &8• &7Thanks! Your report on &f{target} &7has been sent to the staff team."
+report-resolved: "&8» <gradient:#FF7518:#FFFFFF>&lRep</gradient><gradient:#FFFFFF:#FF7518>&lort</gradient> &8• &7Your report on &f{target} &7has been handled by staff. &#FF9147Thank you!"
+kit-claimed: "&8» <gradient:#FF7518:#FFFFFF>&lKi</gradient><gradient:#FFFFFF:#FF7518>&lt</gradient> &8• &7You received the {kit} &7kit!"
+clearlag-warning: "&8» <gradient:#FF7518:#FFFFFF>&lClea</gradient><gradient:#FFFFFF:#FF7518>&lrLag</gradient> &8• &7Ground items will be removed in &f{seconds}s&7."
+clearlag-done: "&8» <gradient:#FF7518:#FFFFFF>&lClea</gradient><gradient:#FFFFFF:#FF7518>&lrLag</gradient> &8• &7Removed &f{total} &7entities &8(&f{items} &7items, &f{mobs} &7mobs&8)"
+
+# ----------------------------------------------------------
+# Join / Leave   ("none" = use Minecraft's default message)
+# ----------------------------------------------------------
+join-message: "&#FF9147&l+ &f{player} &7connected."
+leave-message: "&#D9381E&l- &f{player} &7disconnected."
+
+# ----------------------------------------------------------
+# Usages (shown by the punishment commands)
+# ----------------------------------------------------------
+usage-punish: "<gradient:#FF7518:#FFFFFF>&lUsa</gradient><gradient:#FFFFFF:#FF7518>&lge</gradient> &8» &f/punish <player> <category>"
+usage-ban: "<gradient:#FF7518:#FFFFFF>&lUsa</gradient><gradient:#FFFFFF:#FF7518>&lge</gradient> &8» &f/ban <player> <time|perm> <reason>"
+usage-tempban: "<gradient:#FF7518:#FFFFFF>&lUsa</gradient><gradient:#FFFFFF:#FF7518>&lge</gradient> &8» &f/tempban <player> <time> <reason>"
+usage-mute: "<gradient:#FF7518:#FFFFFF>&lUsa</gradient><gradient:#FFFFFF:#FF7518>&lge</gradient> &8» &f/mute <player> <time|perm> <reason>"
+usage-kick: "<gradient:#FF7518:#FFFFFF>&lUsa</gradient><gradient:#FFFFFF:#FF7518>&lge</gradient> &8» &f/kick <player> [reason]"
+usage-warn: "<gradient:#FF7518:#FFFFFF>&lUsa</gradient><gradient:#FFFFFF:#FF7518>&lge</gradient> &8» &f/warn <player> [reason]"
+usage-unban: "<gradient:#FF7518:#FFFFFF>&lUsa</gradient><gradient:#FFFFFF:#FF7518>&lge</gradient> &8» &f/unban <player>"
+usage-unmute: "<gradient:#FF7518:#FFFFFF>&lUsa</gradient><gradient:#FFFFFF:#FF7518>&lge</gradient> &8» &f/unmute <player>"
+
+# ----------------------------------------------------------
+# Discord webhook
+# ----------------------------------------------------------
+discord-embed-field-player: "Player"
+discord-embed-field-staff: "Staff"
+discord-embed-field-reason: "Reason"
+discord-embed-field-duration: "Duration"
+discord-embed-field-history: "History"
+discord-embed-footer: "UnstableFFA"

@@ -1,0 +1,76 @@
+# ==========================================================
+#  DISCORD WEBHOOKS & /livelink
+#  Edit, save, then /ze reload
+# ==========================================================
+
+# Webhooks
+discord-webhook:
+  enabled: true
+  url: ""
+  username: ""
+  avatar-url: ""
+  events:
+    ban: true
+    tempban: true
+    unban: true
+    mute: true
+    unmute: true
+    kick: true
+    warn: true
+    punish: true
+    unwarn: true
+    ipban: true
+    report: true
+    banevasion: true
+    screenshare: true
+    livelink: true
+  colors:
+    ban: "E74C3C"
+    tempban: "E67E22"
+    unban: "2ECC71"
+    mute: "95A5A6"
+    unmute: "2ECC71"
+    kick: "F1C40F"
+    warn: "F39C12"
+    punish: "9B59B6"
+    unwarn: "2ECC71"
+    ipban: "992D22"
+    report: "E91E63"
+
+  # Bans, tempbans and IP bans get a special embed with the Ban ID (search it in Discord with Ctrl+F).
+  # When the player is unbanned, that same embed turns green and says "UNBANNED by ...".
+  # /banlog sync posts everyone who is banned right now (for bans from before this update).
+  ban-embeds:
+    show-history: true      # how many bans/mutes/warns they had before
+    show-uuid: true
+    show-head: true         # player head picture
+    footer: "Make a ticket with your Ban ID to appeal"
+
+  # One message in a Discord channel that keeps editing itself with the live server status.
+  status-embed:
+    enabled: true
+    url: ""                       # leave empty to use discord-webhook.url
+    title: "Server Status"
+    update-interval-minutes: 5
+    update-on-join-quit: false
+    staff-permission: "unstableffa.staffcount"
+    server-address: "play.yourserver.net"   # shown as "IP:" in the embed, leave empty to hide
+    version-text: "1.7 - Latest"             # versions players can join with
+    thumbnail-url: ""                        # small image top-right (your server logo)
+    image-url: ""                            # big banner at the bottom
+    show-performance: true                   # TPS (Paper only) and peak players
+    show-community: true                     # total players, new today, punishments in the last 24h
+    text-online: "The server is **up** - come play!"
+    text-maintenance: "🚧 The server is in **maintenance** - only staff can join right now."
+    text-offline: "The server is **offline**. Check back soon!"
+
+# /livelink <link> - clickable "I'm live" message.  Permission: unstableffa.livelink
+livelink:
+  enabled: true
+  cooldown-minutes: 15
+  allowed-sites: [tiktok.com, twitch.tv, youtube.com, youtu.be, kick.com]
+  sound: true
+  discord: false            # also post it to the Discord webhook (events.livelink)
+  # {player}, {platform}, {color} = the platform's color
+  title: "  &#D9381E&l● LIVE &8» &f&l{player} &7is live on &{color}&l{platform}&7!"
+  button: "  &{color}&l[ ▶ CLICK HERE TO WATCH ]"

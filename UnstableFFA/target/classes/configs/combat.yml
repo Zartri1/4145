@@ -1,0 +1,160 @@
+# ==========================================================
+#  COMBAT   (combat tag, combat logging, /combat)
+#  Edit, save, then /ze reload
+# ==========================================================
+
+# ==========================================================
+#  COMBAT  (like CelestCombat)
+#  enabled: false turns off EVERYTHING about it, /combat included. Works with /ze reload.
+#  Times: 20s, 5m, 1h, 1d, or combined like 1d_2h_30m
+# ==========================================================
+combat:
+  enabled: true
+  duration: 20s                 # how long you stay in combat after the last hit
+  disabled-worlds: []           # worlds where nobody gets tagged, e.g. [lobby]
+  ignore-creative: false        # true = players in creative / spectator are never tagged
+  untag-on-death: true          # when someone dies, the killer is out of combat too
+  exempt-admin-kick: true       # kicked by staff or the server = never punished
+  disable-flight: true          # no flying in combat (creative players can still fly)
+  block-teleport: true          # no /tpa, /home, /spawn, /warp teleports in combat
+  block-placing: false          # no placing blocks in combat
+  block-containers: false       # no opening chests, barrels, ender chests, shulkers in combat
+  block-riding: false           # no getting on horses, boats or minecarts in combat
+
+  tag-on:
+    players: true               # hitting a player tags both of you
+    projectiles: true           # arrows, tridents, snowballs shot by a player
+    pets: true                  # a player's tamed wolf
+    mobs: false                 # being hit by a mob
+    hitting-mobs: false         # hitting a mob
+
+  # whitelist = ONLY the allowed commands work in combat
+  # blacklist = only the blocked commands are blocked
+  # "tp*" matches every command that starts with tp
+  commands:
+    mode: whitelist
+    allowed: [msg, tell, w, whisper, r, reply, report, staff, rules, combat, ct, helpop]
+    blocked: [spawn, home, homes, tpa, tpahere, tpaccept, warp, warps, rtp, back, ec, enderchest, vanish, v, logout, afk]
+
+  item-restrictions:
+    enabled: false
+    items: [CHORUS_FRUIT, ELYTRA]   # can't be used in combat
+
+  ender-pearl:
+    cooldown: 10s               # 0 = no cooldown
+    in-combat-only: true
+    refresh-combat-on-land: false   # landing a pearl restarts your combat timer
+    disabled-worlds: []
+
+  trident:
+    cooldown: 0                 # 0 = no cooldown
+    in-combat-only: true
+    refresh-combat-on-land: false
+    banned-worlds: []           # worlds where tridents can't be used at all
+
+  # Above the hotbar: "Combat: 12s | Pearl: 4s"
+  display:
+    actionbar: true
+    combat-text: "&#D9381ECombat: {time}s"
+    pearl-text: "&7Pearl: {time}s"
+    trident-text: "&7Trident: {time}s"
+    separator: " &8| "
+    bossbar: false              # a boss bar at the top as well
+    bossbar-title: "&#D9381ECombat: {time}s"
+    bossbar-color: RED          # BLUE, GREEN, PINK, PURPLE, RED, WHITE, YELLOW
+    bossbar-style: SOLID        # SOLID, SEGMENTED_6, SEGMENTED_10, SEGMENTED_12, SEGMENTED_20
+
+  sounds:
+    tagged: BLOCK_NOTE_BLOCK_BASS
+    untagged: ENTITY_EXPERIENCE_ORB_PICKUP
+
+  logout:
+    # BODY = a frozen zombie stays behind, KILL = die on the spot, NONE = nothing happens
+    mode: BODY
+    body-time: 30s              # how long the frozen body stays
+    body-type: ZOMBIE           # any mob: ZOMBIE, HUSK, VILLAGER, PIGLIN...
+    body-name: "&#D9381E{player} &7(logged out)"
+    frozen: true                # the body can't move or attack
+    show-armor: true            # the body wears your armor and holds your item
+    environment-damage: true    # false = only players can hurt the body
+    drop-xp: true
+    on-expire: SAFE             # body time ran out: SAFE = you keep everything, KILL = your items drop
+
+  death-effects:
+    enabled: false
+    only-player-kills: true
+    lightning: true             # harmless lightning where they died
+    particles: true
+
+  kill-rewards:
+    enabled: false
+    commands:                   # run by the console. {killer} {victim}
+      - "give {killer} golden_apple 1"
+    same-player-cooldown: true  # no reward for killing the same player again too soon
+    same-player-cooldown-time: 1d
+    global-cooldown: false      # true = one reward per global-cooldown-time, whoever you kill
+    global-cooldown-time: 5m
+
+  newbie-protection:
+    enabled: false
+    duration: 10m               # only counts while they are online
+    protect-from-players: true
+    protect-from-mobs: false
+    remove-on-attack: true      # attacking someone ends your protection
+    bossbar: true
+    bossbar-title: "&#FF9147PvP protection: &f{time}"
+    bossbar-color: GREEN
+
+  messages:
+    tagged: "&#D9381EYou are in combat with &f{player}&#D9381E! Don't log out."
+    untagged: "&#FF9147You are no longer in combat."
+    command-blocked: "&#D9381EYou can't use /{command} in combat. &7({time}s left)"
+    teleport-blocked: "&#D9381EYou can't teleport in combat."
+    flight-blocked: "&#D9381EYou can't fly in combat."
+    place-blocked: "&#D9381EYou can't place blocks in combat."
+    container-blocked: "&#D9381EYou can't open containers in combat."
+    riding-blocked: "&#D9381EYou can't ride anything in combat."
+    item-blocked: "&#D9381EYou can't use {item} in combat."
+    pearl-cooldown: "&#D9381EEnder pearl cooldown: {time}s"
+    trident-cooldown: "&#D9381ETrident cooldown: {time}s"
+    trident-banned: "&#D9381ETridents are not allowed in this world."
+    logout-broadcast: "&#D9381E{player} logged out in combat!"
+    body-killed-broadcast: "&#D9381E{player} &7was killed while logged out{by}."
+    died-while-away: "&#D9381EYou were killed for logging out in combat{by}."
+    rejoined: "&#FF8330You came back in time. You are still in combat!"
+    newbie-target: "&#D9381E{player} is protected as a new player."
+    newbie-ended: "&#FF8330Your new player protection has ended."
+    reward-cooldown: "&7No reward: you killed {player} too recently."
+
+# ==========================================================
+#  WINDCHARGE TECH
+#  Right-click with a wind charge while FALLING and looking steeply down: it is not thrown,
+#  one charge is used up and you get a small push in the direction you face.
+#  If one of the rules below is not met the wind charge is thrown like in vanilla.
+#  enabled: false turns it off.   Permission: unstableffa.windchargetech
+#  If it does nothing, set debug: true: it shows above your hotbar which rule stopped it.
+# ==========================================================
+windcharge-tech:
+  enabled: true
+  disabled-worlds: []               # worlds where it does not work, e.g. [lobby]
+  pitch-threshold: 65               # look at least this far down (90 = straight down)
+  min-fall-distance: 3              # blocks you must have fallen, so it can't be used standing on the ground
+  forward-boost: 0.32               # push in the direction you face
+  upward-nudge: 0.1                 # small push up, barely slows the fall
+  cooldown-seconds: 5
+  cooldown-message: "&#D9381EWindcharge tech is on cooldown!"   # above the hotbar, empty = nothing. {time} = seconds left
+  sound: ENTITY_WIND_CHARGE_WIND_BURST    # only the player hears it, empty = no sound
+  debug: false                      # true = shows which rule stopped it
+
+# ==========================================================
+#  PROJECTILE HITBOX
+#  Ender pearls and wind charges that players throw hit a little easier. Vanilla already counts them
+#  as 0.3 blocks wide, these numbers are ADDED to that. Small numbers are enough: 0.1 to 0.25.
+#  0 for one of them = vanilla. enabled: false turns all of it off.
+# ==========================================================
+projectile-hitbox:
+  enabled: true
+  ender-pearl: 0.15
+  wind-charge: 0.15
+  players-only: true                # false = mobs count as targets too
+  disabled-worlds: []

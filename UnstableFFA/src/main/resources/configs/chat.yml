@@ -1,0 +1,205 @@
+# ==========================================================
+#  CHAT   (cooldowns, swear filter, chat extras, chat logs, announcements, auto broadcast)
+#  Edit, save, then /ze reload
+# ==========================================================
+
+# ----------------------------------------------------------
+#  CHAT PROTECTION   (staff with unstableffa.cooldown.bypass skip cooldowns)
+# ---------------------------------------------------------------------------
+# Flood filter: stops "aaaaaaaa", "lol lol lol lol", "!!!!!!!!!!" and huge messages.
+# Staff with unstableffa.flood.bypass are ignored.
+# ---------------------------------------------------------------------------
+chat-flood:
+  enabled: true
+  action: lower              # lower = shorten the message and send it   |   block = don't send it
+  max-repeated-chars: 4      # "heyyyyyyy" -> "heyyyy"
+  max-repeated-words: 3      # "lol lol lol lol lol" -> "lol lol lol"
+  max-symbol-run: 5          # "!!!!!!!!!!" -> "!!!!!"
+  max-symbol-percent: 60     # a message that is mostly symbols/emoji is blocked (messages of 8+ characters)
+  max-length: 200            # longer messages are always blocked (0 = no limit)
+  tell-player: true
+  strikes:                   # optional: auto-mute people who keep flooding
+    after: 0                 # 0 = off. e.g. 5 = mute on the 5th flood message ...
+    within-minutes: 2        # ... inside this many minutes
+    duration: 5m
+    reason: Chat spam
+
+# ----------------------------------------------------------
+chat-cooldown:
+  # Seconds between two chat messages
+  seconds: 2
+  # Block sending the exact same message again within this many seconds (0 = off)
+  block-repeat-seconds: 30
+
+# Seconds a player has to wait before using a command again (0 or missing = no cooldown).
+# Works for any command, also other plugins'. "msg" also covers /tell, /w, /whisper, /message.
+# /tpa, /tpahere and /msg only start their cooldown when they actually worked.
+command-cooldowns:
+  tpa: 30
+  tpahere: 30
+  msg: 2
+  report: 0          # /report has its own cooldown under reports.cooldown-seconds
+  home: 3
+  warp: 3
+  spawn: 3
+  nick: 30
+
+# Swear filter. Catches tricks like f.u.c.k, fuuuck, sh1t, f u c k and endings like -ing, -er, -ed.
+# It never matches inside a normal word ("class", "assist", "Dickens" are safe).
+# Bypass: unstableffa.anticuss.bypass
+anti-cuss:
+  enabled: true
+  action: censor          # censor = replace with ****   |   block = don't send the message at all
+  censor-char: "*"
+  tell-player: true       # tell the player their message was censored/blocked
+  auto-warn: false        # also give an official warning (counts toward warn-escalation)
+  check-private-messages: true
+  words:
+    - fuck
+    - motherfuck
+    - shit
+    - bullshit
+    - bitch
+    - ass
+    - asshole
+    - bastard
+    - cunt
+    - dick
+    - cock
+    - pussy
+    - whore
+    - slut
+    - twat
+    - wanker
+    - prick
+    - stfu
+    - wtf
+    - kys
+  # Words that should never be censored even if they match
+  whitelist: []
+
+# Slurs and other words that must NEVER be sent. The message is blocked and the player gets an
+# automatic warning (and warn-escalation can mute/ban them). Bypass: unstableffa.filter.bypass
+chat-filter:
+  enabled: true
+  words: []
+
+# ----------------------------------------------------------
+#  CHAT EXTRAS   (bypass for caps and links: unstableffa.chat.bypass)
+# ----------------------------------------------------------
+chat-extras:
+  # Too many CAPITAL LETTERS
+  caps:
+    enabled: false
+    min-letters: 8          # shorter messages are never checked
+    max-percent: 60         # more than this many % capitals triggers it
+    action: lower           # lower = turn the message into lowercase   |   block = don't send it
+    message: "&#D9381EPlease don't shout."
+  # Links in chat
+  links:
+    enabled: false
+    allowed: [youtube.com, youtu.be, twitch.tv, tiktok.com]   # sites that are fine
+    message: "&#D9381EYou can't send links in chat."
+  # @mentions: typing @ suggests online players; "@Name" in a message pings that player.
+  mentions:
+    enabled: true
+    suggest: true                           # typing @ shows the online players
+    require-at: true                        # true = only "@Name" pings   |   false = plain "Name" pings too
+    highlight: "&#FF8330@{name}&r"                # how @Name looks in chat, "" = leave it
+    title: "&#FF8330&l@{player}"                  # big text for the mentioned player
+    subtitle: "&7mentioned you in chat"
+    actionbar: ""                           # optional extra line, "" = off
+    sound: ENTITY_EXPERIENCE_ORB_PICKUP     # "" = no sound
+    fade-in: 5                              # ticks
+    stay: 40
+    fade-out: 10
+    sender-cooldown: 10                     # seconds before YOU can ping again (the message still sends)
+    sender-cooldown-message: "&7You can ping again in &f{time}s&7."
+    target-cooldown: 30                     # seconds before the SAME player can be pinged again
+    max-per-message: 3                      # at most this many players pinged per message
+  # Your own chat format. Empty = leave the chat as it is (vanilla: <Name> message).
+  # Placeholders: {player} {message} {world}.  Colors: &#FF9147 and &#RRGGBB.  Example: "&7{player} &8» &f{message}"
+  format: ""
+
+# Chat clear
+chat-cleared-broadcast: "&8» <gradient:#FF7518:#FFFFFF>&lCh</gradient><gradient:#FFFFFF:#FF7518>&lat</gradient> &7has been cleared by &f&l{admin}&7."
+
+# Max nickname length
+nick-max-length: 16
+
+# Messages sent to everyone every few minutes. Links are clickable. {online} = players online.
+auto-broadcast:
+  enabled: true
+  interval-seconds: 300
+  random-order: false
+  min-players: 1
+  sound: "BLOCK_NOTE_BLOCK_PLING"     # "" = no sound
+  header: ""
+  footer: ""
+  messages:
+    - "&8» <gradient:#FF7518:#FFFFFF>&lTi</gradient><gradient:#FFFFFF:#FF7518>&lp</gradient> &8• &7Do &f/quests &7every day for free rewards!"
+    - "&8» <gradient:#FF7518:#FFFFFF>&lTi</gradient><gradient:#FFFFFF:#FF7518>&lp</gradient> &8• &7Claim playtime rewards with &f/rewards&7."
+    - "&8» <gradient:#FF7518:#FFFFFF>&lTi</gradient><gradient:#FFFFFF:#FF7518>&lp</gradient> &8• &7See someone breaking the rules? Use &f/report&7."
+    - "&8» <gradient:#FF7518:#FFFFFF>&lDisc</gradient><gradient:#FFFFFF:#FF7518>&lord</gradient> &8• &7Join our community: &#B15CFFhttps://discord.gg/yourserver"
+
+# Every chat message and command is saved. /chatlog <player>   Permission: unstableffa.chatlogs
+chat-logs:
+  enabled: true
+  log-commands: true
+  lines-per-player: 500
+  keep-days: 30            # daily log files older than this are deleted
+  ignored-commands: [login, l, register, reg, changepassword]
+
+# /announce <all|staff|player> <message>
+announce:
+  show-title: true
+  title: "<gradient:#FF7518:#FFFFFF>&lANNOUN</gradient><gradient:#FFFFFF:#FF7518>&lCEMENT</gradient>"   # big text; the message is shown under it
+  chat-format: "&8» <gradient:#FF7518:#FFFFFF>&lAnnoun</gradient><gradient:#FFFFFF:#FF7518>&lcement</gradient> &8• &f{message}"       # {message}, {sender}
+  show-sender: true                                               # show who made the announcement
+  sender-line: "&7Announced by &#FF791F{sender}"                  # line under the announcement
+  console-name: "Server"                                          # name shown when the console announces
+  sound: "ENTITY_PLAYER_LEVELUP"                                  # "" = no sound
+  fade-in: 10      # ticks (20 = 1 second)
+  stay: 100
+  fade-out: 10
+  staff-permission: "unstableffa.staffchat"                  # who gets "/announce staff"
+  click-hint: "&7Click to open"                                   # hover text on clickable announcements (--link / --cmd)
+  click-suffix: " &8[&#FF8330Click&8]"
+  history:
+    enabled: true                  # /announce history
+    keep: 50                       # how many are remembered
+    discord: false                 # also post each announcement to the Discord webhook
+  # /announce all <message> --type event     (also: warning, update). Add your own the same way.
+  types:
+    event:
+      title: "<gradient:#FF7518:#FFFFFF>&lEVE</gradient><gradient:#FFFFFF:#FF7518>&lNT</gradient>"
+      chat-format: "&8» <gradient:#FF7518:#FFFFFF>&lEve</gradient><gradient:#FFFFFF:#FF7518>&lnt</gradient> &8• &f{message}"
+      sound: UI_TOAST_CHALLENGE_COMPLETE
+      bar-color: YELLOW            # boss bar colour for /announce bar
+    warning:
+      title: "<gradient:#FF7518:#FFFFFF>&lWARN</gradient><gradient:#FFFFFF:#FF7518>&lING</gradient>"
+      chat-format: "&8» <gradient:#FF7518:#FFFFFF>&lWarn</gradient><gradient:#FFFFFF:#FF7518>&ling</gradient> &8• &f{message}"
+      sound: BLOCK_ANVIL_LAND
+      bar-color: RED
+    update:
+      title: "<gradient:#FF7518:#FFFFFF>&lUPD</gradient><gradient:#FFFFFF:#FF7518>&lATE</gradient>"
+      chat-format: "&8» <gradient:#FF7518:#FFFFFF>&lUpd</gradient><gradient:#FFFFFF:#FF7518>&late</gradient> &8• &f{message}"
+      sound: ENTITY_EXPERIENCE_ORB_PICKUP
+      bar-color: GREEN
+  # /announce template <name>  - saved announcements. target: all | staff | world:<name>
+  templates:
+    event-start:
+      target: all
+      type: event
+      message: "An event is starting! Type /spawn to join."
+      command: /spawn              # optional: makes the chat line clickable
+    discord:
+      target: all
+      type: update
+      message: "Join our Discord!"
+      link: https://discord.gg/your-invite
+    restart-soon:
+      target: all
+      type: warning
+      message: "Restart in {time}"
+      bar: 30                      # optional: show as a boss bar for 30 seconds

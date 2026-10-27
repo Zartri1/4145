@@ -1,0 +1,119 @@
+# ==========================================================
+#  PUNISHMENTS   (durations, warn escalation, reports, ban evasion)
+#  Edit, save, then /ze reload
+# ==========================================================
+
+# Durations: s = seconds, m = minutes, h = hours, d = days, w = weeks, y = years, perm = permanent
+# Premade Punishments
+punishment-durations:
+  # CHAT OFFENSES
+  Spamming:
+    type: "MUTE"
+    levels: [ "15m", "1h", "12h", "1d", "perm" ]
+
+  Toxicity:
+    type: "MUTE"
+    levels: [ "30m", "2h", "1d", "7d", "perm" ]
+
+  Slurs:
+    type: "MUTE"
+    levels: [ "1h", "1d", "7d", "perm" ]
+
+  Staff Disrespect:
+    type: "MUTE"
+    levels: [ "1h", "6h", "1d", "7d", "perm" ]
+
+  Advertising:
+    type: "BAN"
+    levels: [ "7d","perm" ]
+
+  Impersonation:
+    type: "MUTE"
+    levels: [ "1d", "7d", "perm" ]
+
+  Begging:
+    type: "MUTE"
+    levels: [ "30m", "7h", "30d", "perm" ]
+
+  Inappropriate Language / Swearing:
+    type: "MUTE"
+    levels: [ "1h", "1d", "7d", "30d", "perm"]
+
+  # HACKS
+  Combat Hacks:
+    type: "BAN"
+    levels: [ "30d", "90d", "perm" ]
+
+  Movement Hacks:
+    type: "BAN"
+    levels: [ "30d", "90d", "perm" ]
+
+  Autoclicker:
+    type: "BAN"
+    levels: [ "7d", "30d", "perm" ]
+
+  Xray:
+    type: "BAN"
+    levels: [ "14d", "60d", "perm" ]
+
+  Unfair Advantage: # Catch for all hacks
+    type: "BAN"
+    levels: [ "1w", "30d", "90d", "perm" ]
+
+  # GAMEPLAY OFFENSES
+  Exploiting:
+    type: "BAN"
+    levels: [ "1d", "7d", "30d", "perm" ]
+
+  Griefing:
+    type: "BAN"
+    levels: [ "3d", "7d", "30d", "perm" ]
+
+  Alt Account Abuse:
+    type: "BAN"
+    levels: [ "perm" ]
+
+  # SAFETY
+  Doxxing:
+    type: "BAN"
+    levels: [ "perm" ]
+
+  Threats:
+    type: "BAN"
+    levels: [ "30d", "perm" ]
+
+  Chargeback:
+    type: "BAN"
+    levels: [ "perm" ]
+
+# Automatic punishment when a player reaches this many ACTIVE warnings (mute, tempban, ban, kick)
+warn-escalation:
+  3: "mute 1h"
+  5: "tempban 1d"
+
+# Staff get a join alert when a player has this many past bans
+join-alert-threshold: 3
+
+# Shown at the bottom of every ban screen
+appeal-info: "Appeal: make a ticket on our Discord with your Ban ID."
+
+# /report
+reports:
+  # Seconds a player has to wait between reports
+  cooldown-seconds: 60
+  # Reasons shown in the /report menu. Format: "Name:ITEM"  (an "Other reason" button is always added)
+  reasons:
+    - "Hacking:DIAMOND_SWORD"
+    - "Spamming:PAPER"
+    - "Toxicity / Harassment:SKELETON_SKULL"
+    - "Griefing:TNT"
+    - "Bad name or skin:NAME_TAG"
+    - "Bug abuse:SPIDER_EYE"
+    - "Scamming:GOLD_INGOT"
+
+# Checks every player who joins for accounts on the same IP that are banned.
+ban-evasion:
+  enabled: true
+  action: alert            # alert = tell staff | kick = also kick | ban = also ban permanently
+  discord: true            # post it to the Discord webhook (events.banevasion)
+  kick-message: "&#D9381E&lBAN EVASION\n&7This connection is linked to a banned account.\n&7Appeal on our Discord if this is a mistake."

@@ -1,0 +1,501 @@
+# ==========================================================
+#  PLAYER FEATURES   (welcome, warps, stats, /top, rules, guide, kits, quests, rewards)
+#  Edit, save, then /ze reload
+# ==========================================================
+
+# Welcome for players joining the server for the FIRST time. Test it with /welcome.
+# Placeholders: {player} {server} {online}
+#   {number}  = what number player they are (20)     {ordinal} = the same with an ending (20th)
+welcome:
+  enabled: true
+  server-name: "Unstable Events"
+  delay-ticks: 30
+  after-steps-delay-ticks: 25    # when the rules/guide menu comes first (first join and after /kickall): delay before the welcome shows once they accept it
+  title: "<gradient:#FF7518:#FFFFFF>&lWELC</gradient><gradient:#FFFFFF:#FF7518>&lOME</gradient>"
+  subtitle: "&7to &f{server}&7, &f{player}&7!"
+  fade-in: 10
+  stay: 100
+  fade-out: 20
+  sound: ENTITY_PLAYER_LEVELUP
+  # Sent to everyone online, the new player included. Leave empty ("") for no broadcast.
+  broadcast: "&8» &7Welcome &#FF791F{player} &7to &f{server}&7, you are the &#FF791F{ordinal} &7person that joined!"
+  # Only the new player sees these lines.
+  chat:
+    - "&7Read the rules with &f/rules&7 and get started with &f/guide&7."
+  # Fireworks around a brand new player (they never hurt anyone).
+  fireworks:
+    enabled: true
+    amount: 5
+    every-ticks: 8
+    radius: 4.0
+    on-test: true          # /welcome <player> also shows them
+  # A big chat message for players who come back. {ago} = time since they left (2 days 3 hours).
+  back:
+    enabled: true
+    min-away-minutes: 5    # quick reconnects don't get it
+    delay-ticks: 20
+    sound: ENTITY_EXPERIENCE_ORB_PICKUP
+    lines:
+      - ""
+      - "&8&m                                                    "
+      - "          <gradient:#FF7518:#FFFFFF>&lWELCOM</gradient><gradient:#FFFFFF:#FF7518>&lE BACK</gradient> &f&l{player}"
+      - "          &7Last seen &#FF791F{ago} &7ago"
+      - "          &7There are &#FF791F{online} &7players online"
+      - "&8&m                                                    "
+      - ""
+
+# /warps - menu of the warps a player can use.
+warp-list:
+  enabled: true
+  # icons:             # optional, warp name in lowercase with _ for spaces
+  #   pvp: DIAMOND_SWORD
+  #   shop: EMERALD
+
+# /stats [player] - stats in chat or in a menu. Change the header and lines however you like.
+# Staff with unstableffa.history get a History button.
+# Placeholders: {player} {kills} {deaths} {kd} {killstreak} {best_killstreak} {cobwebs} {pearls}
+#   {golden_apples} {enchanted_golden_apples} {chorus} {xp_bottles} {swings} {hits} {accuracy}
+#   {mob_kills} {playtime}
+stats-chat:
+  enabled: true
+  # chat = the lines below in chat, gui = a menu with one paper per line.
+  # Players can also pick each time: /stats [player] chat  or  /stats [player] gui
+  display: chat
+  header: "&#FF9147------------ {player}'s Stats ------------"
+  lines:
+    - "&7- &fKills: &#FF9147{kills}"
+    - "&7- &fDeaths: &#FF9147{deaths}"
+    - "&7- &fK/D Ratio: &#FF9147{kd}"
+    - "&7- &fKillstreak: &#FF9147{killstreak}"
+    - "&7- &fBest Killstreak: &#FF9147{best_killstreak}"
+    - "&7- &fCobwebs: &#FF9147{cobwebs}"
+    - "&7- &fPearls: &#FF9147{pearls}"
+    - "&7- &fGolden Apples: &#FF9147{golden_apples}"
+    - "&7- &fEnchanted Golden Apples: &#FF9147{enchanted_golden_apples}"
+    - "&7- &fChorus: &#FF9147{chorus}"
+    - "&7- &fExperience Bottles: &#FF9147{xp_bottles}"
+    - "&7- &fSwings: &#FF9147{swings}"
+    - "&7- &fHits: &#FF9147{hits}"
+    - "&7- &fAccuracy: &#FF9147{accuracy}"
+  footer: ""
+
+# /leaderboard (also /top, /lb) - a menu with one icon per list. Click an icon to see the best players of that list.
+# Permission: unstableffa.leaderboard
+top:
+  enabled: true
+  menu-title: "&8Leaderboards"
+  menu-rows: 3              # size of the first menu (1-6 rows, 9 slots each, slots count from 0)
+  size: 36                  # players shown per list (1-45)
+  refresh-minutes: 10       # how often kills/deaths/etc. are re-counted (playtime and online players are always live)
+  batch-per-tick: 20        # players counted per tick while refreshing, lower = even less lag
+  click-head-opens-stats: true   # click a head in a list to open that player's /stats
+  exclude: []               # names that never show up (staff, owners)
+  # Every list = one icon in the first menu. Choose the slot, item, name and description of each.
+  # enabled: false hides one.  The built-in lists are:
+  #   kills, deaths, killstreak (best killstreak ever), playtime
+  # ADD YOUR OWN: write any name and give it a Minecraft statistic (the name of a Statistic in the Spigot docs):
+  #   jumps:
+  #     slot: 25
+  #     icon: RABBIT_FOOT
+  #     name: "<gradient:#FF7518:#FFFFFF>&lJum</gradient><gradient:#FFFFFF:#FF7518>&lps</gradient>"
+  #     description: "Who jumped the most."
+  #     statistic: JUMP
+  #     format: number            # number | distance (centimetres to km) | ticks (time) 
+  categories:
+    kills:
+      enabled: true
+      slot: 10
+      icon: DIAMOND_SWORD
+      name: "<gradient:#FF7518:#FFFFFF>&lKil</gradient><gradient:#FFFFFF:#FF7518>&lls</gradient>"
+      description: "The players with the most kills."
+    deaths:
+      enabled: true
+      slot: 12
+      icon: SKELETON_SKULL
+      name: "<gradient:#FF7518:#FFFFFF>&lDea</gradient><gradient:#FFFFFF:#FF7518>&lths</gradient>"
+      description: "The players who died the most."
+    killstreak:
+      enabled: true
+      slot: 14
+      icon: BLAZE_POWDER
+      name: "<gradient:#FF7518:#FFFFFF>&lKills</gradient><gradient:#FFFFFF:#FF7518>&ltreak</gradient>"
+      description: "The best killstreaks ever reached."
+    playtime:
+      enabled: true
+      slot: 16
+      icon: CLOCK
+      name: "<gradient:#FF7518:#FFFFFF>&lPlay</gradient><gradient:#FFFFFF:#FF7518>&ltime</gradient>"
+      description: "The players with the most time on the server."
+
+# /zenithmenu - a double chest menu with buttons. To ADD a button: copy one of the entries below, give it
+# a free slot (0-53, counting from the top left, 49 is Close) and write the command it runs.
+#   icon: any item name, or PLAYER_HEAD for the head of whoever opens the menu
+#   command: without the slash. {player} = the player who clicked
+#   run-as: player (default) or console      close: true (default) closes the menu on click
+#   permission: only players with it see the button (leave out for everyone)      enabled: false hides one
+zenithmenu:
+  enabled: true
+  title: "&8Unstable Menu"
+  click-sound: UI_BUTTON_CLICK         # "" = no sound. A button can set its own: sound: ...
+  back-slot: 45                        # where the Back button sits inside submenus
+  cooldown-message: "&8» &#D9381E&lWait! &7You can use that again in &f{time}s&7."
+  filler:                              # fills the empty slots
+    enabled: false
+    icon: GRAY_STAINED_GLASS_PANE
+  # Button options: slot, icon, name, lore, command / open / toggle / link, close, cooldown, sound,
+  # permission, hide-permission, amount, glow, enabled. Placeholders in name and lore:
+  # {player} {kills} {deaths} {kd} {playtime} {online} {staff_online} {ping} {world} {state}
+  items:
+    stats:
+      slot: 19
+      icon: PLAYER_HEAD
+      name: "<gradient:#FF7518:#FFFFFF>&lYour </gradient><gradient:#FFFFFF:#FF7518>&lstats</gradient>"
+      lore:
+        - "&7Kills: &f{kills}  &7Deaths: &f{deaths}  &7K/D: &f{kd}"
+        - "&7Playtime: &f{playtime}"
+        - ""
+        - "&#FF8330Click to open"
+      command: "stats {player} gui"
+    leaderboards:
+      slot: 21
+      icon: DIAMOND_SWORD
+      name: "<gradient:#FF7518:#FFFFFF>&lLeader</gradient><gradient:#FFFFFF:#FF7518>&lboards</gradient>"
+      lore:
+        - "&7The best players of the server."
+        - ""
+        - "&#FF8330Click to open"
+      command: "leaderboard"
+    guide:
+      slot: 23
+      icon: BOOK
+      name: "<gradient:#FF7518:#FFFFFF>&lGui</gradient><gradient:#FFFFFF:#FF7518>&lde</gradient>"
+      lore:
+        - "&7How the server works."
+        - ""
+        - "&#FF8330Click to open"
+      command: "guide"
+    settings:
+      slot: 25
+      icon: COMPARATOR
+      name: "<gradient:#FF7518:#FFFFFF>&lSett</gradient><gradient:#FFFFFF:#FF7518>&lings</gradient>"
+      lore:
+        - "&7Change your own settings."
+        - ""
+        - "&#FF8330Click to open"
+      open: toggles                    # opens the submenu "toggles" below
+    server:
+      slot: 29
+      icon: CLOCK
+      name: "<gradient:#FF7518:#FFFFFF>&lSer</gradient><gradient:#FFFFFF:#FF7518>&lver</gradient>"
+      lore:
+        - "&7Players online: &f{online}"
+        - "&7Staff online: &f{staff_online}"
+        - "&7Your ping: &f{ping}ms"
+    discord:
+      slot: 31
+      icon: PAPER
+      name: "<gradient:#FF7518:#FFFFFF>&lDisc</gradient><gradient:#FFFFFF:#FF7518>&lord</gradient>"
+      lore:
+        - "&7Join our community."
+        - ""
+        - "&#FF8330Click for the link"
+      link: https://discord.gg/your-invite
+      cooldown: 3
+    # Staff see this button, everyone else sees nothing. A normal player button in the same slot
+    # would use hide-permission: unstableffa.staffguide
+    staff:
+      slot: 33
+      icon: SHIELD
+      name: "<gradient:#FF7518:#FFFFFF>&lStaff </gradient><gradient:#FFFFFF:#FF7518>&lguide</gradient>"
+      lore:
+        - "&7Commands and rules for staff."
+        - ""
+        - "&#FF8330Click to open"
+      command: "staffguide"
+      permission: unstableffa.staffguide
+  # More menus. Open one with  open: <name>  on a button, or /zenithmenu <name>.
+  # Submenus get a Back button (back-slot) automatically.
+  menus:
+    toggles:
+      title: "&8Quick settings"
+      items:
+        messages:
+          slot: 20
+          icon: WRITABLE_BOOK
+          icon-off: BOOK
+          name: "<gradient:#FF7518:#FFFFFF>&lPrivate </gradient><gradient:#FFFFFF:#FF7518>&lmessages</gradient> &8- {state}"
+          lore:
+            - "&7Let players send you /msg."
+            - ""
+            - "&#FF8330Click to switch"
+          toggle: messages
+        tpa:
+          slot: 22
+          icon: ENDER_PEARL
+          name: "<gradient:#FF7518:#FFFFFF>&lTeleport </gradient><gradient:#FFFFFF:#FF7518>&lrequests</gradient> &8- {state}"
+          lore:
+            - "&7Let players send you /tpa."
+            - ""
+            - "&#FF8330Click to switch"
+          toggle: tpa
+        sounds:
+          slot: 24
+          icon: NOTE_BLOCK
+          name: "<gradient:#FF7518:#FFFFFF>&lSou</gradient><gradient:#FFFFFF:#FF7518>&lnds</gradient> &8- {state}"
+          lore:
+            - "&7Sounds for messages and pings."
+            - ""
+            - "&#FF8330Click to switch"
+          toggle: sounds
+
+# /discord - shows these lines. Add as many as you like. A line with a link (or {link}) is clickable.
+# Colors: &#FF9147, &#RRGGBB, <gradient:#FF7518:#FFFFFF>te</gradient><gradient:#FFFFFF:#FF7518>xt</gradient>.  {player} = the player who typed it.
+discord-command:
+  enabled: true
+  link: https://discord.gg/your-invite
+  hover: "&7Click to open"
+  lines:
+    - ""
+    - "&8» <gradient:#FF7518:#FFFFFF>&lDisc</gradient><gradient:#FFFFFF:#FF7518>&lord</gradient>"
+    - "&7Join our community for events, updates and support."
+    - "&8» &#B15CFF{link} &8(click)"
+    - ""
+
+# First-join steps: a NEW player must read the rules and accept them, then read the guide and accept it,
+# before they can do anything. Only for players who join for the very first time (progress is saved, so
+# leaving and coming back continues at the same step). Staff skip it: unstableffa.firstjoin.bypass
+# The rules come from rules.list below and the guide from guide.topics.
+first-join:
+  enabled: true
+  steps: [rules, guide]       # the order. [rules] = only the rules, [guide] = only the guide
+  delay-ticks: 40             # wait this long after joining before the menu opens (20 = 1 second)
+  read-seconds: 8             # the accept button works after this many seconds (so they read it)
+  decline-button: true        # "I do not accept" on the rules step kicks the player
+  kick-message: "&#D9381E&lYou must accept the rules to play here.\n&7Rejoin when you are ready."
+  blocked-message: "&8» &#D9381E&lWait! &7Finish the first-join steps before you do that."
+  done-message: "&8» &#FF9147&lThanks! &7You are all set. Have fun!"
+  allowed-commands: []        # commands that still work during the steps, for example [discord]
+  kickall-includes-staff: true   # after /kickall, staff and ops must do the steps too
+  kickall-message: "&#D9381E&lEveryone was kicked.\n&7Rejoin and accept the rules and guide again."
+
+# /rules - the server rules in a menu. New players get it on their first join.
+rules:
+  enabled: true
+  show-on-first-join: true
+  require-accept: false     # true = nobody can break or place blocks until they accepted the rules
+  version: 1                # raise this when you change the rules: everybody has to accept again
+  discord: "discord.gg/yourserver"
+  list:
+    - title: "Be respectful"
+      text: "No harassment, insults, slurs or toxic behavior towards anyone."
+      punishment: "Mute, then ban"
+    - title: "No cheating"
+      text: "No hacked clients, x-ray, autoclickers or exploiting bugs."
+      punishment: "Ban"
+    - title: "No griefing or stealing"
+      text: "Don't break, burn or take things that aren't yours."
+      punishment: "Ban"
+    - title: "No spam or advertising"
+      text: "Don't flood the chat and don't advertise other servers."
+      punishment: "Mute or ban"
+    - title: "Keep it clean"
+      text: "No swearing and nothing inappropriate in chat, builds or names."
+      punishment: "Mute"
+    - title: "Listen to staff"
+      text: "Follow what staff tell you. If you disagree, make a ticket on Discord."
+      punishment: "Mute or ban"
+
+# /guide - help menu for new players. Click a topic to get its commands in chat.
+# A line "/command | what it does" becomes a clickable command; any other line is plain text.
+guide:
+  enabled: true
+  topics:
+    getting-started:
+      name: "<gradient:#FF7518:#FFFFFF>&lGetting </gradient><gradient:#FFFFFF:#FF7518>&lstarted</gradient>"
+      icon: COMPASS
+      lines:
+        - "Welcome! Here are the basics."
+        - "/spawn | Go to the server spawn"
+        - "/rules | Read the server rules"
+        - "/guide | Open this guide again"
+        - "/ze help | See every command you can use"
+    teleporting:
+      name: "<gradient:#FF7518:#FFFFFF>&lTelepo</gradient><gradient:#FFFFFF:#FF7518>&lrting</gradient>"
+      icon: ENDER_PEARL
+      lines:
+        - "/tpa <player> | Ask to teleport to a player"
+        - "/tpahere <player> | Ask a player to come to you"
+        - "/tpaccept | Accept a request"
+        - "/tpdeny | Deny a request"
+        - "/home | Go to your home"
+        - "/sethome | Set your home"
+        - "/warp <name> | Go to a warp"
+    chat-social:
+      name: "<gradient:#FF7518:#FFFFFF>&lChat and</gradient><gradient:#FFFFFF:#FF7518>&l friends</gradient>"
+      icon: PLAYER_HEAD
+      lines:
+        - "/msg <player> <message> | Send a private message"
+        - "/block <player> | Hide everything from a player"
+        - "/ignore <player> | Hide a player's chat"
+        - "/staff | See which staff are online"
+    progress:
+      name: "<gradient:#FF7518:#FFFFFF>&lQuests an</gradient><gradient:#FFFFFF:#FF7518>&ld rewards</gradient>"
+      icon: GOLD_INGOT
+      lines:
+        - "/quests | Daily, weekly and monthly quests"
+        - "/rewards | Rewards for your playtime"
+        - "/kit | Claim kits"
+        - "/leaderboard | See the top players"
+    help-safety:
+      name: "&#FF791F&lNeed help?"
+      icon: SHIELD
+      lines:
+        - "/report | Report a player who breaks the rules"
+        - "/staff | See which staff are online"
+        - "Need more help? Make a ticket on our Discord."
+
+# ==========================================================
+#  SYSTEMS  (every one can be switched off with enabled: false)
+# ==========================================================
+
+# /kit  (kits themselves live in kits.yml - make them in-game with /kit create <name>)
+kits:
+  # Kit given automatically on a player's very first join ("" = none)
+  first-join-kit: ""
+  # Show kits a player has no permission for (as "Locked") in the /kit menu
+  show-locked: true
+
+# /near
+near:
+  default-radius: 200
+  max-radius: 1000
+
+# /quests - daily, weekly and monthly quests. The quests themselves are in quests.yml
+quests:
+  enabled: true
+
+# /rewards - rewards for total playtime. Players click to claim.
+playtime-rewards:
+  enabled: true
+  remind-every-minutes: 10
+  rewards:
+    1h:
+      name: "&#FF91471 Hour"
+      playtime: "1h"
+      icon: IRON_INGOT
+      reward-text: "16 Iron Ingots"
+      commands: ["give {player} iron_ingot 16"]
+    5h:
+      name: "&#FF83305 Hours"
+      playtime: "5h"
+      icon: GOLD_INGOT
+      reward-text: "16 Gold Ingots + 2 Golden Apples"
+      commands: ["give {player} gold_ingot 16", "give {player} golden_apple 2"]
+    1d:
+      name: "&#B15CFF1 Day"
+      playtime: "1d"
+      icon: DIAMOND
+      reward-text: "8 Diamonds"
+      commands: ["give {player} diamond 8"]
+    3d:
+      name: "&#8E3BD13 Days"
+      playtime: "3d"
+      icon: ENCHANTED_GOLDEN_APPLE
+      reward-text: "1 Enchanted Golden Apple"
+      commands: ["give {player} enchanted_golden_apple 1"]
+    7d:
+      name: "&#FF7518&l1 Week"
+      playtime: "7d"
+      icon: NETHERITE_INGOT
+      reward-text: "1 Netherite Ingot"
+      commands: ["give {player} netherite_ingot 1"]
+
+# ---------------------------------------------------------------------------
+# Killstreak effects (Halloween theme). The streak itself is counted by /stats.
+#   - a short animated popup for the killer after every kill
+#   - a message for the whole server on milestones: 5, 10, 15, 20, ...
+#   - a message when a big streak gets ended
+# Placeholders: {player} {killer} {victim} {streak} {rank}
+# Colors: &#FF9147, &#FF7518 and <gradient:#FF7518:#FFFFFF>te</gradient><gradient:#FFFFFF:#FF7518>xt</gradient>
+# Preview as admin: /ze killstreak 10      Turn everything off: enabled: false
+# ---------------------------------------------------------------------------
+killstreak:
+  enabled: true
+  disabled-worlds: []                 # worlds where nothing is shown, e.g. [lobby]
+  default-rank: "Trick or Treater"    # name used below the first rank
+  # {rank} = the highest number that is not above the streak
+  ranks:
+    5: "Spooky Streak"
+    10: "Ghoulish Rampage"
+    15: "Nightmare"
+    20: "Headless Horseman"
+    25: "Grim Reaper"
+    50: "Halloween Legend"
+
+  # Popup for the killer after EVERY kill. The frames play one after the other, the last one stays.
+  kill-popup:
+    enabled: true
+    frames:
+      - "&#FF7518&l+1 KILL"
+      - "&#B15CFF&l+1 KILL"
+      - "&#FF7518&l+1 KILL"
+      - "<gradient:#FF7518:#FFFFFF>&l+1 K</gradient><gradient:#FFFFFF:#FF7518>&lILL</gradient>"
+    frame-ticks: 3                    # ticks between frames (20 ticks = 1 second)
+    subtitle: "&7Streak &#FF7518{streak} &8- &#B15CFF{rank}"
+    fade-in: 0
+    stay: 30                          # ticks the last frame stays
+    fade-out: 6
+    sound: ENTITY_BAT_TAKEOFF
+    volume: 1.0
+    rising-pitch: true                # the sound gets higher with a bigger streak
+    particles: true                   # a spooky puff where the victim died
+    particle-types: [SOUL_FIRE_FLAME, WITCH]
+
+  # Message for everyone every `every` kills
+  milestones:
+    enabled: true
+    every: 5                          # 5 = at 5, 10, 15, 20 ...
+    lines:
+      - ""
+      - "&8&m                                              "
+      - "<gradient:#FF7518:#FFFFFF>&lKILL S</gradient><gradient:#FFFFFF:#FF7518>&lTREAK</gradient> &8» &#B15CFF{player} &7is on a &#FF7518&l{streak} &7kill streak"
+      - "&7Rank: &#FF7518{rank} &8| &7Somebody stop them."
+      - "&8&m                                              "
+      - ""
+    title-everyone: ""                # a title on every screen too, leave empty for none. e.g. "&#FF7518&l{streak} STREAK"
+    subtitle-everyone: ""             # e.g. "&#B15CFF{player}"
+    sound: ENTITY_WITHER_SPAWN        # empty = no sound
+    volume: 0.5
+    pitch: 1.2
+    lightning: true                   # harmless lightning on the player
+    particles: true                   # a bigger burst around the player
+    particle-types: [SOUL_FIRE_FLAME, WITCH]
+
+  # Message when someone ends a big streak
+  ended:
+    enabled: true
+    min-streak: 5                     # only streaks of at least this many kills
+    include-environment: true         # also when they died to fall damage, lava and so on
+    message: "&#B15CFF{killer} &7ended &#FF7518{victim}&7's &#D9381E{streak} &7kill streak."
+    message-other: "&#FF7518{victim} &7lost their &#D9381E{streak} &7kill streak."
+    sound: ENTITY_GHAST_SCREAM        # only the player who lost the streak hears it, empty = none
+
+# /tpaccept menu. When on, /tpaccept opens a menu with the head of the player who asked in the middle,
+# Accept on the left and Deny on the right. Closing the menu keeps the request.
+tpa-gui:
+  enabled: false
+  title: "&8Teleport request"
+  head-name: "&#B15CFF&l{player}"
+  to-line: "&7wants to teleport to &fyou"
+  here-line: "&7wants &fyou &7to teleport to &fthem"
+  accept-icon: LIME_CONCRETE
+  accept-name: "<gradient:#FF7518:#FFFFFF>&lACC</gradient><gradient:#FFFFFF:#FF7518>&lEPT</gradient>"
+  accept-lore: "&7Click to accept."
+  deny-icon: RED_CONCRETE
+  deny-name: "<gradient:#FF7518:#FFFFFF>&lDE</gradient><gradient:#FFFFFF:#FF7518>&lNY</gradient>"
+  deny-lore: "&7Click to deny."
+  filler: BLACK_STAINED_GLASS_PANE
+  open-sound: BLOCK_NOTE_BLOCK_PLING     # empty = none
+  accept-sound: ENTITY_EXPERIENCE_ORB_PICKUP
+  deny-sound: BLOCK_NOTE_BLOCK_BASS
+  expired-message: "&#D9381EThat request is no longer there."

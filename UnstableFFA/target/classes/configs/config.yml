@@ -1,0 +1,107 @@
+# ==========================================================
+#                 UNSTABLE FFA  -  CORE SETTINGS
+# ==========================================================
+
+# The only players who cannot be banned, muted, kicked or IP banned.
+# Can be one name or a list.
+owner:
+  - DY76
+  - SecondOwner
+  - ThirdOwner
+
+# Whether OP players get an instant (no-delay) teleport specifically for TPA requests.
+# Players with unstableffa.fasttravel.instant always get instant TPA regardless of this.
+tpa-instant-op: true
+
+# Time in seconds (Set to 0 for instant travel)
+teleport-delay: 5
+
+# Max homes for players without a unstableffa.homes.<number> permission (-1 = unlimited)
+default-home-limit: -1
+
+# Action Bar Themes
+actionbar-countdown: "<gradient:#FF7518:#FFFFFF>&lTelepo</gradient><gradient:#FFFFFF:#FF7518>&lrting</gradient> <gradient:#FF7518:#FFFFFF>&li</gradient><gradient:#FFFFFF:#FF7518>&ln</gradient> &f{time}s&#FF8330&l... &#FF7518&lDon't move!"
+
+actionbar-cancelled: "&#D9381E&l! <gradient:#FF7518:#FFFFFF>&lTeleport </gradient><gradient:#FFFFFF:#FF7518>&lCancelled</gradient> &#FF8330&l(&fYou Moved&#FF8330&l) &#D9381E&l!"
+
+actionbar-success: "&#FF7518&l» <gradient:#FF7518:#FFFFFF>&lTeleportatio</gradient><gradient:#FFFFFF:#FF7518>&ln Successful</gradient> &#FF7518&l«"
+
+# /forcetp and /forcetphere (/tphere)
+force-tp:
+  # Tell the player when staff teleports TO them (never shown while the staff member is vanished)
+  notify-target: true
+  # Also tell them while you're vanished (off = vanished staff stay secret)
+  notify-when-vanished: false
+
+# Simple Voice Chat (only does something if the "voicechat" plugin is installed)
+voicechat:
+  # Players muted with /mute or /punish (MUTE categories) can't talk in voice chat either
+  mute-with-chat: true
+
+# /clearlag
+clearlag:
+  auto:
+    enabled: true
+    interval-minutes: 15
+    # Warning broadcast this many seconds before the clear
+    warnings: [60, 30, 10]
+  # What a normal/automatic clear removes. Named entities are never removed.
+  remove:
+    items: true
+    xp-orbs: true
+    arrows: true
+    hostile-mobs: false
+  ignored-worlds: []
+
+# Stealth Logic
+hide-invisible-killers: false
+
+# Lockdown
+lockdown-active: false
+
+lockdown-kick-message: "&#FF791F&lZ&#F3721C&lE&#E76B18&lN&#DB6415&lI&#CF5D11&lT<gradient:#FF7518:#FFFFFF>&lH</gradient><gradient:#FFFFFF:#FF7518>&l </gradient>&#FF791F&lE&#F3721C&lS&#E76B18&lS&#DB6415&lE&#CF5D11&lN&#C3560E&lT&#B7500B&lI&#AB4908&lA&#9F4305&lL&#933C02&lS\n\n&#D9381E&lSERVER LOCKDOWN\n&7The server is currently restricted to staff only."
+
+# ==========================================================
+#  COMMANDS  (which commands are UnstableFFA' and which belong to other plugins)
+#  Changes apply with /ze reload (or a restart).
+# ==========================================================
+commands:
+  # Turned OFF completely: can't be used and doesn't show when typing "/".
+  # Use this for commands another plugin should handle. Write the name without the slash.
+  # Example: [tpa, tpahere, tpaccept, tpdeny, tpacancel, home, sethome, delhome, listhomes, warp]
+  disabled: []
+  # Always UnstableFFA', even if another plugin has a command with the same name.
+  # The other plugin's version still works as /otherplugin:command.
+  override: [ss]
+
+# Zips your plugin files into plugins/UnstableFFA/backups/. Make one now with /ze backup
+backups:
+  enabled: true
+  interval-hours: 24
+  on-startup: true
+  keep: 14                 # oldest backups are deleted after this many
+  include: [data.yml, configs, staffactivity.yml]
+  # add "chatlogs" to the list above to back up chat logs too (can get big)
+
+# /announcerestart <time> [reason]   (e.g. /announcerestart 5m Updating plugins)
+restart:
+  # Warnings are sent when this many seconds are left
+  warn-at: [1800, 900, 600, 300, 120, 60, 30, 15, 10, 5, 4, 3, 2, 1]
+  show-title: true
+  title: "<gradient:#FF7518:#FFFFFF>&lREST</gradient><gradient:#FFFFFF:#FF7518>&lART</gradient>"
+  subtitle: "&7in &f{time}"
+  message: "&8» <gradient:#FF7518:#FFFFFF>&lRest</gradient><gradient:#FFFFFF:#FF7518>&lart</gradient> &8• &7The server restarts in &#D9381E&l{time}&7!"
+  reason-line: "&7Reason: &f{reason}"
+  sender-line: "&7Announced by &#FF791F{sender}"
+  cancelled: "&8» <gradient:#FF7518:#FFFFFF>&lRest</gradient><gradient:#FFFFFF:#FF7518>&lart</gradient> &8• &#FF9147The restart was cancelled &7by &f{sender}&7."
+  kick-message: "&#D9381E&lSERVER RESTARTING\n\n&7We'll be back in a minute!"
+  # "stop" works on every server (most hosts turn the server back on by themselves).
+  # Use "restart" only if spigot.yml -> settings.restart-script is set up.
+  command: "stop"
+
+# ----------------------------------------------------------
+#  All settings files are in this folder (configs/):
+#    config.yml (this)  combat.yml  chat.yml  punishments.yml  staff.yml
+#    webhooks.yml  features.yml  messages.yml  quests.yml  kits.yml
+#  Use /ze reload after editing any of them.
+# ----------------------------------------------------------

@@ -1,0 +1,159 @@
+# ==========================================================
+#  STAFF TOOLS   (mod mode, screenshare, command spy, lag finder, staff guide)
+#  Edit, save, then /ze reload
+# ==========================================================
+
+# /modmode - staff mode (vanish, fly, night vision and a hotbar of tools). Permission: unstableffa.modmode
+modmode:
+  enabled: true
+  gamemode: SURVIVAL        # gamemode while in modmode (SURVIVAL, CREATIVE, ADVENTURE, SPECTATOR)
+  vanish: true              # go invisible when entering, visible again when leaving
+  fake-messages: true       # show "left the game" when you enter and "joined the game" when you leave (uses the Vanish Messages setting)
+  fly: true
+  invulnerable: true
+  night-vision: true
+  pickup-items: false       # false = can't pick up items while in modmode
+  tools:                    # which hotbar tools you get
+    random-teleport: true
+    inventory: true         # /invsee, sneak = /enderchest
+    freeze: true
+    history: true
+    live: true
+    vanish: true
+
+# /ss <player> - screenshare. Set the room with /ss setlocation
+screenshare:
+  enabled: true
+  teleport-staff: true     # take the staff member to the room too
+  # Punishments (use {player}). punish/ban/tempban/mute/kick/warn are logged with the staff member's name.
+  ban-command: "punish {player} Unfair_Advantage"
+  admit-command: "tempban {player} 14d Admitted to cheating during screenshare"
+  logout-command: "ban {player} perm Logged out during a screenshare"
+  allowed-commands: []     # commands the player may still use while being screenshared
+  # One message per step. Staff send the next one with the [Next] button. Links are clickable.
+  steps:
+    - "&#FF8330You are being screenshared by &f{staff}&#FF8330.\n&#D9381EDo NOT log out, close Minecraft or delete any files - that is an instant ban."
+    - "&#FF8330Join our Discord and go to the &f#screenshare &#FF8330voice channel:\n&#B15CFFhttps://discord.gg/yourserver"
+    - "&#FF8330Download &fAnyDesk &#FF8330and open it:\n&#B15CFFhttps://anydesk.com/download"
+    - "&#FF8330Type your &fAnyDesk address &#FF8330(the 9-10 numbers) here in chat.\n&7Only staff can see what you type right now."
+    - "&#FF8330Accept the connection request from staff and don't touch your mouse or keyboard."
+    - "&#FF9147Almost done! Please wait while staff finishes checking."
+
+# /commandspy
+command-spy:
+  enabled: true
+  format: "&8[<gradient:#FF7518:#FFFFFF>&lCmd</gradient><gradient:#FFFFFF:#FF7518>&lSpy</gradient>&8] &7{player}&8: &f{command}"
+  # Never shown (passwords!)
+  ignored-commands: [login, l, register, reg, changepassword, pin]
+
+# /lagfinder - find what is lagging the server
+lag-finder:
+  alerts:
+    enabled: true
+    tps-below: 16.0           # alert when TPS stays under this
+    checks-in-a-row: 3        # checked every 15 seconds, so 3 = 45 seconds of lag before an alert
+    cooldown-minutes: 10      # at most one alert per 10 minutes
+    webhook-url: ""           # optional: also post the alert in a Discord channel
+  # How heavy each thing counts in a chunk's lag score
+  weights:
+    entity: 1.0
+    dropped-item: 0.5
+    tile-entity: 0.5          # chests, furnaces, signs...
+    hopper: 3.0
+    redstone: 1.5             # pistons, observers, repeaters, comparators, dispensers...
+
+# /staffguide - the same kind of menu for staff. Same format as guide: "/command | what it does".
+staff-guide:
+  enabled: true
+  topics:
+    punishing:
+      name: "<gradient:#FF7518:#FFFFFF>&lPunis</gradient><gradient:#FFFFFF:#FF7518>&lhing</gradient>"
+      lines:
+        - "Check /history before you punish. Always give a reason."
+        - "/punish <player> <category> | Right length for repeat offenders"
+        - "/warn <player> [reason] | 3 warnings = 1h mute, 5 = 1 day ban"
+        - "/mute <player> <time> <reason> | Mute in chat and voice chat"
+        - "/unmute <player> | Lift a mute"
+        - "/kick <player> [reason] | Kick a player"
+        - "/tempban <player> <time> <reason> | Temporary ban"
+        - "/unban <player> | Lift a ban"
+        - "/mutelist | Everyone muted right now"
+    looking-into:
+      name: "<gradient:#FF7518:#FFFFFF>&lLooking int</gradient><gradient:#FFFFFF:#FF7518>&lo a player</gradient>"
+      lines:
+        - "/history <player> | Every ban, mute, kick, warning and note"
+        - "/history #ID | Look up a Ban ID from an appeal"
+        - "/note <player> <text> | Private staff note"
+        - "/seen <player> | Player browser and profile cards"
+        - "/stats <player> | Stats with a history button"
+        - "/live <player> | What they are doing right now"
+        - "/invsee <player> | Their inventory"
+        - "/enderchest <player> | Their ender chest"
+        - "/chatlog <player> | Their recent chat and commands"
+    reports:
+      name: "<gradient:#FF7518:#FFFFFF>&lRepo</gradient><gradient:#FFFFFF:#FF7518>&lrts</gradient>"
+      lines:
+        - "/reports | Reports menu"
+        - "Left-click to claim, right-click to teleport."
+        - "Shift + left-click to resolve, shift + right-click for history."
+    watching:
+      name: "<gradient:#FF7518:#FFFFFF>&lWatching</gradient><gradient:#FFFFFF:#FF7518>&l players</gradient>"
+      lines:
+        - "/modmode | Staff mode with a hotbar of tools"
+        - "/vanish | Become invisible"
+        - "/tp <player> | Teleport to a player"
+        - "/tphere <player> | Bring a player to you"
+        - "/freeze <player> | Stop a player from moving"
+        - "/near [radius] | Players near you"
+        - "/commandspy | See commands players type"
+        - "/socialspy | See private messages"
+    screenshare:
+      name: "<gradient:#FF7518:#FFFFFF>&lScreens</gradient><gradient:#FFFFFF:#FF7518>&lharing</gradient>"
+      lines:
+        - "/ss <player> | Start a screenshare"
+        - "/ss list | Screenshares running now"
+        - "Use the buttons in chat to send steps and finish."
+    chat:
+      name: "<gradient:#FF7518:#FFFFFF>&lCh</gradient><gradient:#FFFFFF:#FF7518>&lat</gradient>"
+      lines:
+        - "/sc <message> | Staff chat (just /sc to toggle)"
+        - "/mutechat [reason] | Lock public chat"
+        - "/clearchat | Wipe the chat"
+        - "/zenithsettings | Your alerts, vanish messages and social spy"
+
+# Tracks staff online time, punishments, reports and appeals. /staffactivity
+staff-activity:
+  enabled: true
+
+# Daily limits for staff. A group is a rank (trainee, helper...). Staff are in a group when they have the
+# permission  unstableffa.limit.<group>  . -1 = unlimited. Resets at midnight. Ops are never limited.
+# Edit it in the menu with /punishlimits or here.
+punish-limits:
+  enabled: true
+  timezone: ""                 # e.g. "Europe/Amsterdam". Empty = server time
+  notify-admins: true          # tell staff with unstableffa.punishlimits.admin when someone hits the limit
+  show-remaining: true         # tell staff how many they have left after each punishment
+  default:                     # staff that are in no group (-1 = unlimited)
+    ban: -1
+    mute: -1
+    kick: -1
+    warn: -1
+  groups:
+    trainee:
+      ban: 1
+      mute: 5
+      kick: 10
+      warn: 10
+    helper:
+      ban: 3
+      mute: 15
+      kick: 30
+      warn: 30
+    mod:
+      ban: 10
+      mute: 40
+      kick: 80
+      warn: 80
+  message-reached: "&8» &#D9381E&lDenied! &7You already used all &f{max} &7{actions} you may give today. It resets at midnight."
+  message-none: "&8» &#D9381E&lDenied! &7You are not allowed to use &f{action} &7at your rank."
+  message-admin: "&8[&#B15CFFLimits&8] &f{player} &7tried to go over the daily &f{action} &7limit (&f{used}&7/&f{max}&7)."
